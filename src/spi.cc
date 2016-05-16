@@ -18,12 +18,3 @@ NAN_MODULE_INIT(InitAll) {
 
 NODE_MODULE(spi, InitAll)
 
-// Trick to speed up compilation.
-// Normally cc files are listed in bindings.gyp and compiled individually.
-// Including them here rather than compiling them individually reduces compile
-// time.
-/*#include "close.cc"
-#include "open.cc"
-#include "spidevice.cc"
-#include "transfer.cc"*/
-
