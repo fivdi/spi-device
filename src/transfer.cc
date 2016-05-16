@@ -7,9 +7,6 @@
 #include "util.h"
 
 
-#include <unistd.h>
-
-
 // TODO
 // - Make sure it works when the messages array is empty
 
