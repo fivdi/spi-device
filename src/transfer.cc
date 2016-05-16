@@ -8,14 +8,14 @@
 
 
 // TODO
-// - Make sure it works when the messages array is empty
+// - Make sure it works when the message array is empty
 
 
 static int Transfer(
   int fd,
-  spi_ioc_transfer *messages,
-  uint32_t messageCount) {
-  return ioctl(fd, SPI_IOC_MESSAGE(messageCount), messages);
+  spi_ioc_transfer *spiTransfers,
+  uint32_t transferCount) {
+  return ioctl(fd, SPI_IOC_MESSAGE(transferCount), spiTransfers);
 }
 
 
@@ -24,22 +24,22 @@ public:
   TransferWorker(
     Nan::Callback *callback,
     int fd,
-    v8::Local<v8::Value> messages,
-    spi_ioc_transfer *spiMessages,
-    uint32_t messageCount
+    v8::Local<v8::Value> message,
+    spi_ioc_transfer *spiTransfers,
+    uint32_t transferCount
   ) : SpiAsyncWorker(callback),
     fd_(fd),
-    spiMessages_(spiMessages),
-    messageCount_(messageCount) {
-    SaveToPersistent("messages", messages);
+    spiTransfers_(spiTransfers),
+    transferCount_(transferCount) {
+    SaveToPersistent("message", message);
   }
 
   ~TransferWorker() {
   }
 
   void Execute() {
-    int ret = Transfer(fd_, spiMessages_, messageCount_);
-    free(spiMessages_);
+    int ret = Transfer(fd_, spiTransfers_, transferCount_);
+    free(spiTransfers_);
     if (ret == -1) {
       SetErrorNo(errno);
       SetErrorSyscall("transfer");
@@ -49,11 +49,11 @@ public:
   void HandleOKCallback() {
     Nan::HandleScope scope;
 
-    v8::Local<v8::Value> messages = GetFromPersistent("messages");
+    v8::Local<v8::Value> message = GetFromPersistent("message");
 
     v8::Local<v8::Value> argv[] = {
       Nan::Null(),
-      messages
+      message
     };
 
     callback->Call(2, argv);
@@ -61,27 +61,27 @@ public:
 
 private:
   int fd_;
-  spi_ioc_transfer *spiMessages_;
-  uint32_t messageCount_;
+  spi_ioc_transfer *spiTransfers_;
+  uint32_t transferCount_;
 };
 
 
-static int32_t ToSpiMessages(
-  v8::Local<v8::Array> messages,
-  spi_ioc_transfer *spiMessages
+static int32_t ToSpiTransfers(
+  v8::Local<v8::Array> message,
+  spi_ioc_transfer *spiTransfers
 ) {
-  for (unsigned i = 0; i < messages->Length(); ++i) {
-    // Message
+  for (unsigned i = 0; i < message->Length(); ++i) {
+    // Transfer
 
-    v8::Local<v8::Value> message = messages->Get(i);
+    v8::Local<v8::Value> transfer = message->Get(i);
 
-    if (!message->IsObject()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "each message being transfered should be an object"));
+    if (!transfer->IsObject()) {
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "a transfer being should be an object"));
       return -1;
     }
 
-    v8::Local<v8::Object> msg = v8::Local<v8::Object>::Cast(message);
+    v8::Local<v8::Object> msg = v8::Local<v8::Object>::Cast(transfer);
 
     // byteLength
 
@@ -89,17 +89,17 @@ static int32_t ToSpiMessages(
       Nan::New<v8::String>("byteLength").ToLocalChecked()).ToLocalChecked();
 
     if (byteLength->IsUndefined()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message byteLength not specified"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer byteLength not specified"));
       return -1;
     } else if (!byteLength->IsUint32()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message byteLength should be an unsigned integer"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer byteLength should be an unsigned integer"));
       return -1;
     }
 
     uint32_t length = byteLength->Uint32Value();
-    spiMessages[i].len = length;
+    spiTransfers[i].len = length;
 
     // sendBuffer
 
@@ -110,14 +110,14 @@ static int32_t ToSpiMessages(
       // No sendBuffer so tx_buf should be NULL. This is already the case.
     } else if (node::Buffer::HasInstance(sendBuffer)) {
       if (node::Buffer::Length(sendBuffer) < length) {
-        Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-          "message sendBuffer contains less than byteLength bytes"));
+        Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+          "transfer sendBuffer contains less than byteLength bytes"));
         return -1;
       }
-      spiMessages[i].tx_buf = (__u64) node::Buffer::Data(sendBuffer);
+      spiTransfers[i].tx_buf = (__u64) node::Buffer::Data(sendBuffer);
     } else {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message sendBuffer should be null, undefined, or a Buffer object"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer sendBuffer should be null, undefined, or a Buffer object"));
       return -1;
     }
 
@@ -130,14 +130,14 @@ static int32_t ToSpiMessages(
       // No receiveBuffer so rx_buf should be NULL. This is already the case.
     } else if (node::Buffer::HasInstance(receiveBuffer)) {
       if (node::Buffer::Length(receiveBuffer) < length) {
-        Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-          "message receiveBuffer contains less than byteLength bytes"));
+        Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+          "transfer receiveBuffer contains less than byteLength bytes"));
         return -1;
       }
-      spiMessages[i].rx_buf = (__u64) node::Buffer::Data(receiveBuffer);
+      spiTransfers[i].rx_buf = (__u64) node::Buffer::Data(receiveBuffer);
     } else {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message receiveBuffer should be null, undefined, or a Buffer object"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer receiveBuffer should be null, undefined, or a Buffer object"));
       return -1;
     }
 
@@ -145,8 +145,8 @@ static int32_t ToSpiMessages(
 
     if ((sendBuffer->IsNull() || sendBuffer->IsUndefined()) &&
         (receiveBuffer->IsNull() || receiveBuffer->IsUndefined())) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message contains neither a sendBuffer nor a receiveBuffer"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer contains neither a sendBuffer nor a receiveBuffer"));
       return -1;
     }
 
@@ -158,11 +158,11 @@ static int32_t ToSpiMessages(
     if (speed->IsUndefined()) {
       // No speed defined, nothing to do.
     } else if (!speed->IsUint32()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message speed should be an unsigned integer"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer speed should be an unsigned integer"));
       return -1;
     } else {
-      spiMessages[i].speed_hz = speed->Uint32Value();
+      spiTransfers[i].speed_hz = speed->Uint32Value();
     }
 
     // chipSelectChange
@@ -174,11 +174,11 @@ static int32_t ToSpiMessages(
     if (chipSelectChange->IsUndefined()) {
       // No chipSelectChange defined, nothing to do.
     } else if (!chipSelectChange->IsBoolean()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiMessages",
-        "message chipSelectChange should be a boolean"));
+      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
+        "transfer chipSelectChange should be a boolean"));
       return -1;
     } else {
-      spiMessages[i].cs_change = chipSelectChange->BooleanValue() ? 1 : 0;
+      spiTransfers[i].cs_change = chipSelectChange->BooleanValue() ? 1 : 0;
     }
   }
 
@@ -199,27 +199,27 @@ void Transfer(Nan::NAN_METHOD_ARGS_TYPE info) {
       !info[0]->IsArray() ||
       !info[1]->IsFunction()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "transfer",
-      "incorrect arguments passed to transfer(messages, cb)"));
+      "incorrect arguments passed to transfer(message, cb)"));
   }
 
-  v8::Local<v8::Array> messages = info[0].As<v8::Array>();
+  v8::Local<v8::Array> message = info[0].As<v8::Array>();
   Nan::Callback *callback = new Nan::Callback(info[1].As<v8::Function>());
 
-  spi_ioc_transfer *spiMessages = (spi_ioc_transfer *)
-    malloc(messages->Length() * sizeof(spi_ioc_transfer));
-  memset(spiMessages, 0, messages->Length() * sizeof(spi_ioc_transfer));
+  spi_ioc_transfer *spiTransfers = (spi_ioc_transfer *)
+    malloc(message->Length() * sizeof(spi_ioc_transfer));
+  memset(spiTransfers, 0, message->Length() * sizeof(spi_ioc_transfer));
 
-  if (ToSpiMessages(messages, spiMessages) == -1) {
-    free(spiMessages);
+  if (ToSpiTransfers(message, spiTransfers) == -1) {
+    free(spiTransfers);
     return;
   }
 
   Nan::AsyncQueueWorker(new TransferWorker(
     callback,
     fd,
-    messages,
-    spiMessages,
-    messages->Length()
+    message,
+    spiTransfers,
+    message->Length()
   ));
 
   info.GetReturnValue().Set(info.This());
@@ -237,22 +237,22 @@ void TransferSync(Nan::NAN_METHOD_ARGS_TYPE info) {
 
   if (info.Length() < 1 || !info[0]->IsArray()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "transfer",
-      "incorrect arguments passed to transferSync(messages)"));
+      "incorrect arguments passed to transferSync(message)"));
   }
 
-  v8::Local<v8::Array> messages = info[0].As<v8::Array>();
+  v8::Local<v8::Array> message = info[0].As<v8::Array>();
 
-  spi_ioc_transfer *spiMessages = (spi_ioc_transfer *)
-    malloc(messages->Length() * sizeof(spi_ioc_transfer));
-  memset(spiMessages, 0, messages->Length() * sizeof(spi_ioc_transfer));
+  spi_ioc_transfer *spiTransfers = (spi_ioc_transfer *)
+    malloc(message->Length() * sizeof(spi_ioc_transfer));
+  memset(spiTransfers, 0, message->Length() * sizeof(spi_ioc_transfer));
 
-  if (ToSpiMessages(messages, spiMessages) == 0) {
-    if (Transfer(fd, spiMessages, messages->Length()) == -1) {
+  if (ToSpiTransfers(message, spiTransfers) == 0) {
+    if (Transfer(fd, spiTransfers, message->Length()) == -1) {
       Nan::ThrowError(Nan::ErrnoException(errno, "transferSync", ""));
     }
   }
 
-  free(spiMessages);
+  free(spiTransfers);
 
   info.GetReturnValue().Set(info.This());
 }
