@@ -48,13 +48,19 @@ void SetOptions(Nan::NAN_METHOD_ARGS_TYPE info) {
   int fd = device->Fd();
 
   if (fd == -1) {
-    return Nan::ThrowError(Nan::ErrnoException(EPERM, "setOptions",
-      "device closed, operation not permitted"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EPERM, "setOptions", "device closed, operation not permitted"
+      )
+    );
   }
 
   if (info.Length() < 1 || !info[0]->IsFunction()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "setOptions",
-      "incorrect arguments passed to setOptions(cb)"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EINVAL, "setOptions", "incorrect arguments passed to setOptions(cb)"
+      )
+    );
   }
 
   Nan::Callback *callback = new Nan::Callback(info[0].As<v8::Function>());
@@ -70,8 +76,11 @@ void SetOptionsSync(Nan::NAN_METHOD_ARGS_TYPE info) {
   int fd = device->Fd();
 
   if (fd == -1) {
-    return Nan::ThrowError(Nan::ErrnoException(EPERM, "setOptionsSync",
-      "device closed, operation not permitted"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EPERM, "setOptionsSync", "device closed, operation not permitted"
+      )
+    );
   }
 
   if (SetOptions(fd) == -1) {

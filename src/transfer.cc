@@ -14,7 +14,8 @@
 static int Transfer(
   int fd,
   spi_ioc_transfer *spiTransfers,
-  uint32_t transferCount) {
+  uint32_t transferCount
+) {
   return ioctl(fd, SPI_IOC_MESSAGE(transferCount), spiTransfers);
 }
 
@@ -76,8 +77,11 @@ static int32_t ToSpiTransfers(
     v8::Local<v8::Value> transfer = message->Get(i);
 
     if (!transfer->IsObject()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "a transfer being should be an object"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL, "toSpiTransfers", "a transfer being should be an object"
+        )
+      );
       return -1;
     }
 
@@ -85,16 +89,25 @@ static int32_t ToSpiTransfers(
 
     // byteLength
 
-    v8::Local<v8::Value> byteLength = Nan::Get(msg,
-      Nan::New<v8::String>("byteLength").ToLocalChecked()).ToLocalChecked();
+    v8::Local<v8::Value> byteLength =
+      Nan::Get(msg, Nan::New<v8::String>("byteLength").ToLocalChecked()).
+      ToLocalChecked();
 
     if (byteLength->IsUndefined()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer byteLength not specified"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL, "toSpiTransfers", "transfer byteLength not specified"
+        )
+      );
       return -1;
     } else if (!byteLength->IsUint32()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer byteLength should be an unsigned integer"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer byteLength should be an unsigned integer"
+        )
+      );
       return -1;
     }
 
@@ -103,41 +116,63 @@ static int32_t ToSpiTransfers(
 
     // sendBuffer
 
-    v8::Local<v8::Value> sendBuffer = Nan::Get(msg,
-      Nan::New<v8::String>("sendBuffer").ToLocalChecked()).ToLocalChecked();
+    v8::Local<v8::Value> sendBuffer =
+      Nan::Get(msg, Nan::New<v8::String>("sendBuffer").ToLocalChecked()).
+      ToLocalChecked();
 
     if (sendBuffer->IsNull() || sendBuffer->IsUndefined()) {
       // No sendBuffer so tx_buf should be NULL. This is already the case.
     } else if (node::Buffer::HasInstance(sendBuffer)) {
       if (node::Buffer::Length(sendBuffer) < length) {
-        Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-          "transfer sendBuffer contains less than byteLength bytes"));
+        Nan::ThrowError(
+          Nan::ErrnoException(
+            EINVAL,
+            "toSpiTransfers",
+            "transfer sendBuffer contains less than byteLength bytes"
+          )
+        );
         return -1;
       }
       spiTransfers[i].tx_buf = (__u64) node::Buffer::Data(sendBuffer);
     } else {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer sendBuffer should be null, undefined, or a Buffer object"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer sendBuffer should be null, undefined, or a Buffer object"
+        )
+      );
       return -1;
     }
 
     // receiveBuffer
 
-    v8::Local<v8::Value> receiveBuffer = Nan::Get(msg,
-      Nan::New<v8::String>("receiveBuffer").ToLocalChecked()).ToLocalChecked();
+    v8::Local<v8::Value> receiveBuffer =
+      Nan::Get(msg, Nan::New<v8::String>("receiveBuffer").ToLocalChecked()).
+      ToLocalChecked();
 
     if (receiveBuffer->IsNull() || receiveBuffer->IsUndefined()) {
       // No receiveBuffer so rx_buf should be NULL. This is already the case.
     } else if (node::Buffer::HasInstance(receiveBuffer)) {
       if (node::Buffer::Length(receiveBuffer) < length) {
-        Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-          "transfer receiveBuffer contains less than byteLength bytes"));
+        Nan::ThrowError(
+          Nan::ErrnoException(
+            EINVAL,
+            "toSpiTransfers",
+            "transfer receiveBuffer contains less than byteLength bytes"
+          )
+        );
         return -1;
       }
       spiTransfers[i].rx_buf = (__u64) node::Buffer::Data(receiveBuffer);
     } else {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer receiveBuffer should be null, undefined, or a Buffer object"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer receiveBuffer should be null, undefined, or a Buffer object"
+        )
+      );
       return -1;
     }
 
@@ -145,8 +180,13 @@ static int32_t ToSpiTransfers(
 
     if ((sendBuffer->IsNull() || sendBuffer->IsUndefined()) &&
         (receiveBuffer->IsNull() || receiveBuffer->IsUndefined())) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer contains neither a sendBuffer nor a receiveBuffer"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer contains neither a sendBuffer nor a receiveBuffer"
+        )
+      );
       return -1;
     }
 
@@ -158,8 +198,13 @@ static int32_t ToSpiTransfers(
     if (speed->IsUndefined()) {
       // No speed defined, nothing to do.
     } else if (!speed->IsUint32()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer speed should be an unsigned integer"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer speed should be an unsigned integer"
+        )
+      );
       return -1;
     } else {
       spiTransfers[i].speed_hz = speed->Uint32Value();
@@ -167,15 +212,20 @@ static int32_t ToSpiTransfers(
 
     // chipSelectChange
 
-    v8::Local<v8::Value> chipSelectChange = Nan::Get(msg,
-      Nan::New<v8::String>("chipSelectChange").ToLocalChecked()).
+    v8::Local<v8::Value> chipSelectChange =
+      Nan::Get(msg, Nan::New<v8::String>("chipSelectChange").ToLocalChecked()).
       ToLocalChecked();
 
     if (chipSelectChange->IsUndefined()) {
       // No chipSelectChange defined, nothing to do.
     } else if (!chipSelectChange->IsBoolean()) {
-      Nan::ThrowError(Nan::ErrnoException(EINVAL, "toSpiTransfers",
-        "transfer chipSelectChange should be a boolean"));
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer chipSelectChange should be a boolean"
+        )
+      );
       return -1;
     } else {
       spiTransfers[i].cs_change = chipSelectChange->BooleanValue() ? 1 : 0;
@@ -191,15 +241,23 @@ void Transfer(Nan::NAN_METHOD_ARGS_TYPE info) {
   int fd = device->Fd();
 
   if (fd == -1) {
-    return Nan::ThrowError(Nan::ErrnoException(EPERM, "transfer",
-      "device closed, operation not permitted"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EPERM, "transfer", "device closed, operation not permitted"
+      )
+    );
   }
 
   if (info.Length() < 2 ||
       !info[0]->IsArray() ||
       !info[1]->IsFunction()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "transfer",
-      "incorrect arguments passed to transfer(message, cb)"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EINVAL,
+        "transfer",
+        "incorrect arguments passed to transfer(message, cb)"
+      )
+    );
   }
 
   v8::Local<v8::Array> message = info[0].As<v8::Array>();
@@ -231,13 +289,21 @@ void TransferSync(Nan::NAN_METHOD_ARGS_TYPE info) {
   int fd = device->Fd();
 
   if (fd == -1) {
-    return Nan::ThrowError(Nan::ErrnoException(EPERM, "transferSync",
-      "device closed, operation not permitted"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EPERM, "transferSync", "device closed, operation not permitted"
+      )
+    );
   }
 
   if (info.Length() < 1 || !info[0]->IsArray()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "transfer",
-      "incorrect arguments passed to transferSync(message)"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EINVAL,
+        "transfer",
+        "incorrect arguments passed to transferSync(message)"
+      )
+    );
   }
 
   v8::Local<v8::Array> message = info[0].As<v8::Array>();

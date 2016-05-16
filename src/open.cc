@@ -60,15 +60,22 @@ void Open(SpiDevice *device, Nan::NAN_METHOD_ARGS_TYPE info) {
       !info[0]->IsUint32() ||
       !info[1]->IsUint32() ||
       !info[2]->IsFunction()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "open",
-      "incorrect arguments passed to open(busNumber, deviceNumber, cb)"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EINVAL,
+        "open",
+        "incorrect arguments passed to open(busNumber, deviceNumber, cb)"
+      )
+    );
   }
 
   uint32_t busNumber = info[0]->Uint32Value();
   uint32_t deviceNumber = info[1]->Uint32Value();
   Nan::Callback *callback = new Nan::Callback(info[2].As<v8::Function>());
 
-  Nan::AsyncQueueWorker(new OpenWorker(callback, device, busNumber, deviceNumber));
+  Nan::AsyncQueueWorker(
+    new OpenWorker(callback, device, busNumber, deviceNumber)
+  );
 }
 
 
@@ -76,8 +83,13 @@ void OpenSync(SpiDevice *device, Nan::NAN_METHOD_ARGS_TYPE info) {
   if (info.Length() < 2 ||
       !info[0]->IsUint32() ||
       !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "openSync",
-      "incorrect arguments passed to openSync(busNumber, deviceNumber)"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EINVAL,
+        "openSync",
+        "incorrect arguments passed to openSync(busNumber, deviceNumber)"
+      )
+    );
   }
 
   uint32_t busNumber = info[0]->Uint32Value();

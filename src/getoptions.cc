@@ -110,13 +110,19 @@ void GetOptions(Nan::NAN_METHOD_ARGS_TYPE info) {
   int fd = device->Fd();
 
   if (fd == -1) {
-    return Nan::ThrowError(Nan::ErrnoException(EPERM, "getOptions",
-      "device closed, operation not permitted"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EPERM, "getOptions", "device closed, operation not permitted"
+      )
+    );
   }
 
   if (info.Length() < 1 || !info[0]->IsFunction()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "getOptions",
-      "incorrect arguments passed to getOptions(cb)"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EINVAL, "getOptions", "incorrect arguments passed to getOptions(cb)"
+      )
+    );
   }
 
   Nan::Callback *callback = new Nan::Callback(info[0].As<v8::Function>());
@@ -132,8 +138,11 @@ void GetOptionsSync(Nan::NAN_METHOD_ARGS_TYPE info) {
   int fd = device->Fd();
 
   if (fd == -1) {
-    return Nan::ThrowError(Nan::ErrnoException(EPERM, "getOptionsSync",
-      "device closed, operation not permitted"));
+    return Nan::ThrowError(
+      Nan::ErrnoException(
+        EPERM, "getOptionsSync", "device closed, operation not permitted"
+      )
+    );
   }
 
   SpiOptions spiOptions;
