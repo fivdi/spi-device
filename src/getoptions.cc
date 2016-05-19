@@ -15,10 +15,10 @@ public:
 };
 
 
-static int GetOptions(int fd, SpiOptions *spiOptions) {
-  if (ioctl(fd, SPI_IOC_RD_MODE, &spiOptions->mode) == -1 ||
-      ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &spiOptions->bitsPerWord) == -1 ||
-      ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &spiOptions->maxSpeedHz) == -1) {
+static int GetOptions(int fd, SpiOptions &spiOptions) {
+  if (ioctl(fd, SPI_IOC_RD_MODE, &spiOptions.mode) == -1 ||
+      ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &spiOptions.bitsPerWord) == -1 ||
+      ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &spiOptions.maxSpeedHz) == -1) {
     return -1;
   }
 
@@ -79,7 +79,7 @@ public:
   ~GetOptionsWorker() {}
 
   void Execute() {
-    if (GetOptions(fd_, &spiOptions_) == -1) {
+    if (GetOptions(fd_, spiOptions_) == -1) {
       SetErrorNo(errno);
       SetErrorSyscall("getOptions");
     }
@@ -147,7 +147,7 @@ void GetOptionsSync(Nan::NAN_METHOD_ARGS_TYPE info) {
 
   SpiOptions spiOptions;
 
-  if (GetOptions(fd, &spiOptions) == -1) {
+  if (GetOptions(fd, spiOptions) == -1) {
     return Nan::ThrowError(Nan::ErrnoException(errno, "getOptionsSync", ""));
   }
 
