@@ -32,8 +32,10 @@ public:
 
 
 static int SetOptions(int fd, SpiOptions &spiOptions) {
-  if (ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &spiOptions.maxSpeedHz) == -1) {
-    return -1;
+  if (spiOptions.setMaxSpeed) {
+    if (ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &spiOptions.maxSpeedHz) == -1) {
+      return -1;
+    }
   }
 
   return 0;
