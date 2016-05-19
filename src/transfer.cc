@@ -79,7 +79,7 @@ static int32_t ToSpiTransfers(
     if (!transfer->IsObject()) {
       Nan::ThrowError(
         Nan::ErrnoException(
-          EINVAL, "toSpiTransfers", "a transfer being should be an object"
+          EINVAL, "toSpiTransfers", "a transfer should be an object"
         )
       );
       return -1;
