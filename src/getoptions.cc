@@ -15,10 +15,10 @@ public:
 };
 
 
-static int GetOptions(int fd, SpiOptions *options) {
-  if (ioctl(fd, SPI_IOC_RD_MODE, &options->mode) == -1 ||
-      ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &options->bitsPerWord) == -1 ||
-      ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &options->maxSpeedHz) == -1) {
+static int GetOptions(int fd, SpiOptions *spiOptions) {
+  if (ioctl(fd, SPI_IOC_RD_MODE, &spiOptions->mode) == -1 ||
+      ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &spiOptions->bitsPerWord) == -1 ||
+      ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &spiOptions->maxSpeedHz) == -1) {
     return -1;
   }
 
