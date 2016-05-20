@@ -7,8 +7,7 @@
 #include "util.h"
 
 
-// TODO
-// - Make sure it works when the message array is empty
+// TODO Make sure it works when the message array is empty
 
 
 static int Transfer(
@@ -25,7 +24,7 @@ public:
   TransferWorker(
     Nan::Callback *callback,
     int fd,
-    v8::Local<v8::Value> message,
+    v8::Local<v8::Array> &message,
     spi_ioc_transfer *spiTransfers,
     uint32_t transferCount
   ) : SpiAsyncWorker(callback),
@@ -68,7 +67,7 @@ private:
 
 
 static int32_t ToSpiTransfers(
-  v8::Local<v8::Array> message,
+  v8::Local<v8::Array> &message,
   spi_ioc_transfer *spiTransfers
 ) {
   for (unsigned i = 0; i < message->Length(); ++i) {
