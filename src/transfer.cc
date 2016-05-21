@@ -78,7 +78,7 @@ static int32_t ToSpiTransfers(
     if (!transfer->IsObject()) {
       Nan::ThrowError(
         Nan::ErrnoException(
-          EINVAL, "toSpiTransfers", "a transfer should be an object"
+          EINVAL, "toSpiTransfers", "a transfer must be an object"
         )
       );
       return -1;
@@ -104,7 +104,7 @@ static int32_t ToSpiTransfers(
         Nan::ErrnoException(
           EINVAL,
           "toSpiTransfers",
-          "transfer byteLength should be an unsigned integer"
+          "transfer byteLength must be an unsigned integer"
         )
       );
       return -1;
@@ -120,7 +120,7 @@ static int32_t ToSpiTransfers(
       ToLocalChecked();
 
     if (sendBuffer->IsNull() || sendBuffer->IsUndefined()) {
-      // No sendBuffer so tx_buf should be NULL. This is already the case.
+      // No sendBuffer so tx_buf must be NULL. This is already the case.
     } else if (node::Buffer::HasInstance(sendBuffer)) {
       if (node::Buffer::Length(sendBuffer) < length) {
         Nan::ThrowError(
@@ -138,7 +138,7 @@ static int32_t ToSpiTransfers(
         Nan::ErrnoException(
           EINVAL,
           "toSpiTransfers",
-          "transfer sendBuffer should be null, undefined, or a Buffer object"
+          "transfer sendBuffer must be null, undefined, or a Buffer object"
         )
       );
       return -1;
@@ -151,7 +151,7 @@ static int32_t ToSpiTransfers(
       ToLocalChecked();
 
     if (receiveBuffer->IsNull() || receiveBuffer->IsUndefined()) {
-      // No receiveBuffer so rx_buf should be NULL. This is already the case.
+      // No receiveBuffer so rx_buf must be NULL. This is already the case.
     } else if (node::Buffer::HasInstance(receiveBuffer)) {
       if (node::Buffer::Length(receiveBuffer) < length) {
         Nan::ThrowError(
@@ -169,7 +169,7 @@ static int32_t ToSpiTransfers(
         Nan::ErrnoException(
           EINVAL,
           "toSpiTransfers",
-          "transfer receiveBuffer should be null, undefined, or a Buffer object"
+          "transfer receiveBuffer must be null, undefined, or a Buffer object"
         )
       );
       return -1;
@@ -201,7 +201,7 @@ static int32_t ToSpiTransfers(
         Nan::ErrnoException(
           EINVAL,
           "toSpiTransfers",
-          "transfer speed should be an unsigned integer"
+          "transfer speed must be an unsigned integer"
         )
       );
       return -1;
@@ -222,7 +222,7 @@ static int32_t ToSpiTransfers(
         Nan::ErrnoException(
           EINVAL,
           "toSpiTransfers",
-          "transfer chipSelectChange should be a boolean"
+          "transfer chipSelectChange must be a boolean"
         )
       );
       return -1;
