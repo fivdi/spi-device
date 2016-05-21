@@ -2,12 +2,10 @@
 
 var spi = require('bindings')('spi'),
   assert = require('assert'),
-  device,
+  device = spi.openSync(0, 0),
   originalOptions,
   options,
   newOptions;
-
-device = spi.openSync(0, 0);
 
 originalOptions = device.getOptionsSync();
 

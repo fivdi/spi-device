@@ -1,12 +1,13 @@
 'use strict';
 
-var spi = require('bindings')('spi');
+var spi = require('bindings')('spi'),
+  mcp3008;
 
 // Determine the temperature using a TMP36 analog temperature sensor wired to
 // channel 5 on an MCP3008 SPI A/D converter
 
 // The MCP3008 is on bus 0 and it's device 0
-var mcp3008 = spi.open(0, 0, function (err) {
+mcp3008 = spi.open(0, 0, function (err) {
   // An SPI message is an array of one or more read+write transfers
   var message = [{
     sendBuffer: new Buffer([0x01, 0xd0, 0x00]), // Sent to read channel 5
@@ -20,9 +21,9 @@ var mcp3008 = spi.open(0, 0, function (err) {
   }
 
   mcp3008.transfer(message, function (err, message) {
-    var rawValue;
-    var voltage;
-    var celcius;
+    var rawValue,
+      voltage,
+      celcius;
 
     if (err) {
       throw err;

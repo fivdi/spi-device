@@ -1,12 +1,12 @@
 'use strict';
 
-var spi = require('bindings')('spi');
-var assert = require('assert');
-var mcp3008;
-var rawValue;
-var celcius;
-var count = 0;
-var total = 0;
+var spi = require('bindings')('spi'),
+  assert = require('assert'),
+  mcp3008,
+  rawValue,
+  celcius,
+  count = 0,
+  total = 0;
 
 mcp3008 = spi.open(0, 0, function (err) {
   var message = [{

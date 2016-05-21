@@ -1,9 +1,9 @@
 'use strict';
 
-var spi = require('bindings')('spi');
-var device = spi.openSync(0, 0);
-var count = 0;
-var options;
+var spi = require('bindings')('spi'),
+  device = spi.openSync(0, 0),
+  count = 0,
+  options;
 
 while (true) {
   count += 1;

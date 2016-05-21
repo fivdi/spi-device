@@ -1,7 +1,7 @@
 'use strict';
 
-var spi = require('bindings')('spi');
-var count = 0;
+var spi = require('bindings')('spi'),
+  count = 0;
 
 while (true) {
   spi.openSync(0, 0).closeSync();
