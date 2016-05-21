@@ -83,6 +83,10 @@ device = spi.open(0, 0, function (err) {
           newOptions.maxSpeedHz,
           'can\'t set maxSpeedHz'
         );
+
+        device.setOptions(originalOptions, function (err) {
+          assert(!err, 'can\'t set options');
+        })
       });
     });
   });

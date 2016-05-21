@@ -78,3 +78,5 @@ assert.strictEqual(
   'can\'t set bitsPerWord'
 );
 
+device.setOptionsSync(originalOptions);
+
