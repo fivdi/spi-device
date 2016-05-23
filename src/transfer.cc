@@ -209,6 +209,72 @@ static int32_t ToSpiTransfers(
       spiTransfers[i].speed_hz = speed->Uint32Value();
     }
 
+    // microSecondDelay
+
+    v8::Local<v8::Value> microSecondDelay = Nan::Get(msg,
+      Nan::New<v8::String>("microSecondDelay").ToLocalChecked()).ToLocalChecked();
+
+    if (microSecondDelay->IsUndefined()) {
+      // No microSecondDelay defined, nothing to do.
+    } else if (!microSecondDelay->IsUint32()) {
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer microSecondDelay must be an unsigned integer"
+        )
+      );
+      return -1;
+    } else {
+      uint32_t delay = microSecondDelay->Uint32Value();
+
+      if (delay >= 65536) {
+        Nan::ThrowError(
+          Nan::ErrnoException(
+            EINVAL,
+            "toSpiTransfers",
+            "transfer microSecondDelay must be less than 65536"
+          )
+        );
+        return -1;
+      }
+
+      spiTransfers[i].delay_usecs = delay;
+    }
+
+    // bitsPerWord
+
+    v8::Local<v8::Value> bitsPerWord = Nan::Get(msg,
+      Nan::New<v8::String>("bitsPerWord").ToLocalChecked()).ToLocalChecked();
+
+    if (bitsPerWord->IsUndefined()) {
+      // No bitsPerWord defined, nothing to do.
+    } else if (!bitsPerWord->IsUint32()) {
+      Nan::ThrowError(
+        Nan::ErrnoException(
+          EINVAL,
+          "toSpiTransfers",
+          "transfer bitsPerWord must be an unsigned integer"
+        )
+      );
+      return -1;
+    } else {
+      uint32_t bits = bitsPerWord->Uint32Value();
+
+      if (bits >= 256) {
+        Nan::ThrowError(
+          Nan::ErrnoException(
+            EINVAL,
+            "toSpiTransfers",
+            "transfer bitsPerWord must be less than 256"
+          )
+        );
+        return -1;
+      }
+
+      spiTransfers[i].bits_per_word = bits;
+    }
+
     // chipSelectChange
 
     v8::Local<v8::Value> chipSelectChange =
