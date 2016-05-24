@@ -3,14 +3,14 @@
 var spi = require('bindings')('spi'),
   assert = require('assert'),
   count = 0,
-  totalCount = 0;
+  totalCount = 0,
+  result;
 
 function createMessage() {
   var message = [],
-    channelByte,
-    channel;
+    channelByte;
 
-  for (channel = 0; channel <= 7; channel += 1) {
+  [0, 1, 4, 5].forEach(function (channel) {
     channelByte = 0x80 + (channel << 4);
 
     message.push({
@@ -20,16 +20,27 @@ function createMessage() {
       speed: 1350000,
       chipSelectChange: true
     });
-  }
+  });
 
   return message;
 }
 
+function saveResult(message) {
+  result = '';
+
+  message.forEach(function (transfer) {
+    result += ((transfer.receiveBuffer[1] << 8) +
+      transfer.receiveBuffer[2]) + ' ';
+  });
+}
+
 function sync() {
-  var mcp3008 = spi.openSync(0, 0);
+  var mcp3008 = spi.openSync(0, 0),
+    message = createMessage();
 
   mcp3008.setOptionsSync(mcp3008.getOptionsSync());
-  mcp3008.transferSync(createMessage());
+  mcp3008.transferSync(message);
+  saveResult(message);
   mcp3008.closeSync();
 
   count += 1;
@@ -41,6 +52,7 @@ function sync() {
 function transfer(mcp3008, cb) {
   mcp3008.transfer(createMessage(), function (err, message) {
     assert(!err, 'can\'t transfer with mcp3008');
+    saveResult(message);
     cb();
   })
 }
@@ -69,7 +81,7 @@ function async() {
 }
 
 setInterval(function () {
-  console.log(totalCount + ' ' + count);
+  console.log(totalCount + ' ' + count + ' - ' + result);
   count = 0;
 }, 1000);
 
