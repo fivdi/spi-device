@@ -1,7 +1,7 @@
 'use strict';
 
 var spi = require('bindings')('spi'),
-  mcp3008 = spi.openSync(0, 0),
+  mcp3008 = spi.openSync(0, 0, {mode: spi.MODE0}),
   rawValue,
   voltage,
   celcius,

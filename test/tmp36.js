@@ -8,7 +8,7 @@ var spi = require('bindings')('spi'),
   count = 0,
   total = 0;
 
-mcp3008 = spi.open(0, 0, function (err) {
+mcp3008 = spi.open(0, 0, {mode: spi.MODE0}, function (err) {
   var message = [{
     sendBuffer: new Buffer([0x01, 0xd0, 0x00]),
     receiveBuffer: new Buffer([0, 0, 0]),

@@ -7,31 +7,7 @@
 #include "util.h"
 
 
-class SpiOptions {
-public:
-  SpiOptions() :
-    setMode(false),
-    setBitsPerWord(false),
-    setMaxSpeedHz(false),
-    modeMask(0xff),
-    mode(0),
-    bitsPerWord(0),
-    maxSpeedHz(0) {
-  }
-
-  bool setMode;
-  bool setBitsPerWord;
-  bool setMaxSpeedHz;
-
-  uint8_t modeMask;
-
-  uint8_t mode;
-  uint8_t bitsPerWord;
-  uint32_t maxSpeedHz;
-};
-
-
-static int SetOptions(int fd, SpiOptions &spiOptions) {
+int SetOptions(int fd, SpiOptions &spiOptions) {
   if (spiOptions.setMode) {
     // TODO - critical section begin
     uint8_t currentMode;
@@ -96,7 +72,7 @@ private:
 };
 
 
-static int32_t ToSpiOptions(
+int32_t ToSpiOptions(
   v8::Local<v8::Object> &jsOptions,
   SpiOptions &spiOptions
 ) {
