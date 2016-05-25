@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.1.0 / May 25 2016
+===================
 
   * documentation
   * device configuration options

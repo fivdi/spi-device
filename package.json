@@ -1,6 +1,6 @@
 {
   "name": "spi-device",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "SPI device access with JavaScript",
   "main": "spi-device.js",
   "directories": {
