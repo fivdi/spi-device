@@ -1,3 +1,10 @@
+Unpublished
+===========
+
+  * documentation
+  * device configuration options
+  * transfer options
+
 0.0.0 / May 16 2016
 ===================
 

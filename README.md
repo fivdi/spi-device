@@ -1,3 +1,202 @@
 ## spi-device
 
-WIP
+SPI device access with **Node.js** on Linux boards like the Raspberry Pi Zero,
+1, 2, or 3. All methods have asynchronous and synchronous forms.
+
+## Contents
+
+ * [Installation](https://github.com/fivdi/spi-device#installation)
+ * [Usage](https://github.com/fivdi/spi-device#usage)
+ * [API documentation](https://github.com/fivdi/spi-device#api-documentation)
+
+## Installation
+
+```
+npm install spi-device
+```
+
+## Usage
+
+Determine the temperature using a TMP36 analog temperature sensor wired to
+channel 5 on an MCP3008 SPI A/D converter
+
+```js
+var spi = require('spi-device'),
+  mcp3008;
+
+// The MCP3008 is on bus 0 and it's device 0
+mcp3008 = spi.open(0, 0, function (err) {
+  // An SPI message is an array of one or more read+write transfers
+  var message = [{
+    sendBuffer: new Buffer([0x01, 0xd0, 0x00]), // Sent to read channel 5
+    receiveBuffer: new Buffer(3),               // Raw data read from channel 5
+    byteLength: 3,
+    speed: 20000 // Use a low bus speed to get a good reading from the TMP36
+  }];
+
+  if (err) {
+    throw err;
+  }
+
+  mcp3008.transfer(message, function (err, message) {
+    var rawValue,
+      voltage,
+      celcius;
+
+    if (err) {
+      throw err;
+    }
+
+    // Convert raw value from sensor to celcius and log to console
+    rawValue = (message[0].receiveBuffer[1] << 8) +
+      message[0].receiveBuffer[2];
+    voltage = rawValue * 3.3 / 1024;
+    celcius = (voltage - 0.5) * 100;
+
+    console.log(celcius);
+  });
+});
+```
+
+## API documentation
+
+All methods have asynchronous and synchronous forms.
+
+The asynchronous form always take a completion callback as its last argument.
+The arguments passed to the completion callback depend on the method, but the
+first argument is always reserved for an exception. If the operation was
+completed successfully, then the first argument will be null or undefined.
+
+When using the synchronous form any exceptions are immediately thrown. You can
+use try/catch to handle exceptions or allow them to bubble up. 
+
+### Functions
+
+- [open(busNumber, deviceNumber[, options], cb)]()
+- [openSync(busNumber, deviceNumber[, options])]()
+
+### Class SpiDevice
+
+- [device.transfer(message, cb)]()
+- [device.transferSync(message)]()
+- [device.getOptions(cb)]()
+- [device.getOptionsSync()]()
+- [device.setOptions(options, cb)]()
+- [device.setOptionsSync(options)]()
+- [device.close(cb)]()
+- [device.closeSync()]()
+
+### Constants
+
+- [MODE0]()
+- [MODE1]()
+- [MODE2]()
+- [MODE3]()
+
+### open(busNumber, deviceNumber[, options], cb)
+- busNumber - the number of the SPI bus to open, 0 for `/dev/spidev0.n`, 1 for `/dev/spidev1.n`, ...
+- deviceNumber - the number of the SPI device to open, 0 for `/dev/spidevn.0`, 1 for `/dev/spidevn.1`, ...
+- options - an optional object specifying device [configuration options]()
+- cb - completion callback
+
+Asynchronous open. Returns a new SpiDevice object. The callback gets one argument (err).
+
+### openSync(busNumber, deviceNumber[, options])
+- busNumber - the number of the SPI bus to open, 0 for `/dev/spidev0.n`, 1 for `/dev/spidev1.n`, ...
+- deviceNumber - the number of the SPI device to open, 0 for `/dev/spidevn.0`, 1 for `/dev/spidevn.1`, ...
+- options - an optional object specifying device [configuration options]()
+
+Synchronous open. Returns a new SpiDevice object.
+
+### device.transfer(message, cb)
+- message - an array of one or more read+write transfers
+- cb - completion callback
+
+Asynchronous message transfer. An SPI [message]() is an array of one or more
+read+write transfers. The callback gets two arguments (err, message). Returns
+this.
+
+### device.transferSync(message)
+- message - an array of one or more read+write transfers
+
+Synchronous message transfer. An SPI [message]() is an array of one or more
+read+write transfers. Returns this.
+
+### device.getOptions(cb)
+- cb - completion callback
+
+Asynchronously read device [configuration options](). The callback gets two
+arguments (err, options). Returns this.
+
+### device.getOptionsSync()
+
+Synchronously read device [configuration options](). Returns an object.
+
+### device.setOptions(options, cb)
+- options - an object specifying device [configuration options]()
+- cb - completion callback
+
+Asynchronously write device [configuration options](). The callback gets one
+argument (err). Returns this.
+
+
+### device.setOptionsSync(options)
+- options - an object specifying device [configuration options]()
+
+Synchronously write device [configuration options](). Returns this.
+
+### device.close(cb)
+- cb - completion callback
+
+Asynchronous close. The callback gets one argument (err). Returns null.
+
+### device.closeSync()
+
+Synchronous close. Returns null.
+
+### MODE0
+
+SPI mode number 0.
+
+### MODE1
+
+SPI mode number 1.
+
+### MODE2
+
+SPI mode number 2.
+
+### MODE3
+
+SPI mode number 3.
+
+### Message
+
+An SPI message is an array of one or more read+write transfers. A transfer
+is an object with the following properties, most of which are optional:
+
+- byteLength - number, 32-bit, the number of bytes to transfer
+- sendBuffer - optional Buffer, transmit data
+- receiveBuffer - optional Buffer, receive data
+- speed - optional number, 32-bit, override of the device's bitrate in Hertz
+- microSecondDelay - optional number, 16-bit, delay after the last bit transfer before optionally deselecting the device before the next transfer
+- bitsPerWord - optional number, 8-bit, override of the device's wordsize
+- chipSelectChange - optional boolean, true to deselect device before starting the next transfer
+
+Note that although both sendBuffer and receiveBuffer are optional, at least
+one one of them must be specified.
+
+### Configuration options
+
+- mode - number, 2-bit, MODE0, MODE1, MODE2, or MODE3
+- chipSelectHigh - boolean, true for active high chip select, default false
+- lsbFirst - boolean, true least significant bit first transfer, default false
+- threeWire - boolean, true for shared MISO/MOSI signals, default false
+- loopback - boolean, true for loopback mode, default false
+- noChipSelect - boolean, true for 1 device per bus, no chip select, default false
+- ready - boolean, true if device pulls low to pause, default false
+- bitsPerWord - number, 8-bit, device word size, default 8
+- maxSpeedHz - number, 32-bit, device bitrate in Hertz, default system specific
+
+The options supported varies from system to system.
+
