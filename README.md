@@ -144,12 +144,14 @@ Returns an object.
 [configuration options](https://github.com/fivdi/spi-device#configuration-options)
 - cb - completion callback
 
-Asynchronously write device [configuration options](). The callback gets one
-argument (err). Returns this.
+Asynchronously write device
+[configuration options](https://github.com/fivdi/spi-device#configuration-options).
+The callback gets one argument (err). Returns this.
 
 
 ### device.setOptionsSync(options)
-- options - an object specifying device [configuration options]()
+- options - an object specifying device
+[configuration options](https://github.com/fivdi/spi-device#configuration-options)
 
 Synchronously write device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options).
