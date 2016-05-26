@@ -1,3 +1,10 @@
+0.1.1 / May 26 2016
+===================
+
+  * critical section for option modification
+  * tests improved
+  * check to see if requested transfer takes place
+
 0.1.0 / May 25 2016
 ===================
 
