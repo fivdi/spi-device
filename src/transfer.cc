@@ -7,15 +7,25 @@
 #include "util.h"
 
 
-// TODO Make sure it works when the message array is empty
-
-
 static int Transfer(
   int fd,
   spi_ioc_transfer *spiTransfers,
   uint32_t transferCount
 ) {
-  return ioctl(fd, SPI_IOC_MESSAGE(transferCount), spiTransfers);
+  int totalLen = 0;
+
+  for (uint32_t i = 0; i != transferCount; ++i) {
+    totalLen += spiTransfers[i].len;
+  }
+
+  int ret = ioctl(fd, SPI_IOC_MESSAGE(transferCount), spiTransfers);
+
+  if (ret != -1 && ret != totalLen) {
+    errno = EINVAL;
+    ret = -1;
+  }
+
+  return ret;
 }
 
 
