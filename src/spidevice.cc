@@ -7,6 +7,7 @@
 #include "setoptions.h"
 
 
+uv_mutex_t SpiDevice::optionAccessLock;
 Nan::Persistent<v8::Function> SpiDevice::constructor;
 
 
@@ -32,6 +33,8 @@ NAN_MODULE_INIT(SpiDevice::Init) {
   Nan::SetPrototypeMethod(tpl, "setOptionsSync", SetOptionsSync);
 
   constructor.Reset(tpl->GetFunction());
+
+  uv_mutex_init(&optionAccessLock);
 }
 
 
@@ -72,6 +75,16 @@ v8::Local<v8::Object> SpiDevice::OpenSync(Nan::NAN_METHOD_ARGS_TYPE info) {
   ::OpenSync(device, info);
 
   return scope.Escape(instance);
+}
+
+
+void SpiDevice::LockOptionAccess() {
+  uv_mutex_lock(&SpiDevice::optionAccessLock);
+}
+
+
+void SpiDevice::UnlockOptionAccess() {
+  uv_mutex_unlock(&SpiDevice::optionAccessLock);
 }
 
 

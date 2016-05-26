@@ -9,17 +9,20 @@
 
 int SetOptions(int fd, SpiOptions &spiOptions) {
   if (spiOptions.setMode) {
-    // TODO - critical section begin
+    SpiDevice::LockOptionAccess();
+
     uint8_t currentMode;
-    if (ioctl(fd, SPI_IOC_RD_MODE, &currentMode) == -1) {
-      return -1;
+    int ret = ioctl(fd, SPI_IOC_RD_MODE, &currentMode);
+    if (ret != -1) {
+      uint8_t nextMode = (currentMode & spiOptions.modeMask) | spiOptions.mode;
+      ret = ioctl(fd, SPI_IOC_WR_MODE, &nextMode);
     }
 
-    uint8_t nextMode = (currentMode & spiOptions.modeMask) | spiOptions.mode;
-    if (ioctl(fd, SPI_IOC_WR_MODE, &nextMode) == -1) {
+    SpiDevice::UnlockOptionAccess();
+
+    if (ret == -1) {
       return -1;
     }
-    // TODO - critical section end
   }
 
   if (spiOptions.setBitsPerWord) {

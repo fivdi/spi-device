@@ -7,6 +7,8 @@ class SpiDevice : public Nan::ObjectWrap {
 
   static v8::Local<v8::Object> Open(Nan::NAN_METHOD_ARGS_TYPE info);
   static v8::Local<v8::Object> OpenSync(Nan::NAN_METHOD_ARGS_TYPE info);
+  static void LockOptionAccess();
+  static void UnlockOptionAccess();
 
   void SetFd(int fd) { fd_ = fd; }
   int Fd() const { return fd_; }
@@ -25,7 +27,9 @@ class SpiDevice : public Nan::ObjectWrap {
   static NAN_METHOD(SetOptions);
   static NAN_METHOD(SetOptionsSync);
 
+  static uv_mutex_t optionAccessLock;
   static Nan::Persistent<v8::Function> constructor;
+
   int fd_;
 };
 
