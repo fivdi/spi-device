@@ -18,7 +18,7 @@ npm install spi-device
 ## Usage
 
 Determine the temperature using a TMP36 analog temperature sensor wired to
-channel 5 on an MCP3008 SPI A/D converter
+channel 5 on an MCP3008 SPI A/D converter.
 
 ```js
 var spi = require('spi-device'),
@@ -100,7 +100,9 @@ use try/catch to handle exceptions or allow them to bubble up.
 [configuration options](https://github.com/fivdi/spi-device#configuration-options)
 - cb - completion callback
 
-Asynchronous open. Returns a new SpiDevice object. The callback gets one argument (err).
+Asynchronous open. Returns a new SpiDevice object. The callback gets one
+argument (err). The SpiDevice object returned should not be used before the
+callback is called.
 
 ### openSync(busNumber, deviceNumber[, options])
 - busNumber - the number of the SPI bus to open, 0 for `/dev/spidev0.n`, 1 for `/dev/spidev1.n`, ...
@@ -148,7 +150,6 @@ Asynchronously write device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options).
 The callback gets one argument (err). Returns this.
 
-
 ### device.setOptionsSync(options)
 - options - an object specifying device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options)
@@ -191,21 +192,24 @@ is an object with the following properties, most of which are optional:
 - sendBuffer - optional Buffer, transmit data
 - receiveBuffer - optional Buffer, receive data
 - speed - optional number, 32-bit, override of the device's bitrate in Hertz
-- microSecondDelay - optional number, 16-bit, delay after the last bit transfer before optionally deselecting the device before the next transfer
+- microSecondDelay - optional number, 16-bit, delay after the last bit transfer
+before optionally deselecting the device before the next transfer
 - bitsPerWord - optional number, 8-bit, override of the device's wordsize
-- chipSelectChange - optional boolean, true to deselect device before starting the next transfer
+- chipSelectChange - optional boolean, true to deselect device before starting
+the next transfer
 
 Note that although both sendBuffer and receiveBuffer are optional, at least
 one one of them must be specified.
 
 ### Configuration options
 
-- mode - number, 2-bit, MODE0, MODE1, MODE2, or MODE3
+- mode - number, 2-bit, MODE0, MODE1, MODE2, or MODE3, default MODE0
 - chipSelectHigh - boolean, true for active high chip select, default false
 - lsbFirst - boolean, true least significant bit first transfer, default false
 - threeWire - boolean, true for shared MISO/MOSI signals, default false
 - loopback - boolean, true for loopback mode, default false
-- noChipSelect - boolean, true for 1 device per bus, no chip select, default false
+- noChipSelect - boolean, true for 1 device per bus, no chip select, default
+false
 - ready - boolean, true if device pulls low to pause, default false
 - bitsPerWord - number, 8-bit, device word size, default 8
 - maxSpeedHz - number, 32-bit, device bitrate in Hertz, default system specific
