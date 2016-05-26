@@ -1,0 +1,8 @@
+#!/bin/sh
+echo options
+node options
+echo options-sync
+node options-sync
+echo message-size
+node message-size
+
