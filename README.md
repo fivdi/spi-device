@@ -133,8 +133,8 @@ more read+write transfers. Returns this.
 
 Asynchronously read device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options).
-The callback gets two arguments (err, options) where options is an object
-describing the device configuration options. Returns this.
+The completion callback gets two arguments (err, options) where options is an
+object describing the device configuration options. Returns this.
 
 ### device.getOptionsSync()
 
