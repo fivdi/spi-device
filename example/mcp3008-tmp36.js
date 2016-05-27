@@ -32,7 +32,7 @@ mcp3008 = spi.open(0, 0, function (err) {
     // Convert raw value from sensor to celcius and log to console
     rawValue = (message[0].receiveBuffer[1] << 8) +
       message[0].receiveBuffer[2];
-    voltage = rawValue * 3.3 / 1024;
+    voltage = rawValue * 3.3 / 1023;
     celcius = (voltage - 0.5) * 100;
 
     console.log(celcius);
