@@ -100,9 +100,9 @@ use try/catch to handle exceptions or allow them to bubble up.
 [configuration options](https://github.com/fivdi/spi-device#configuration-options)
 - cb - completion callback
 
-Asynchronous open. Returns a new SpiDevice object. The callback gets one
-argument (err). The SpiDevice object returned should not be used before the
-callback is called.
+Asynchronous open. Returns a new SpiDevice object. The completion callback gets
+one argument (err). The SpiDevice object returned should not be used before the
+completion callback is called.
 
 ### openSync(busNumber, deviceNumber[, options])
 - busNumber - the number of the SPI bus to open, 0 for `/dev/spidev0.n`, 1 for `/dev/spidev1.n`, ...
@@ -118,8 +118,8 @@ Synchronous open. Returns a new SpiDevice object.
 
 Asynchronous message transfer. An SPI
 [message](https://github.com/fivdi/spi-device#message) is an array of one or
-more read+write transfers. The callback gets two arguments (err, message).
-Returns this.
+more read+write transfers. The completion callback gets two arguments (err,
+message). Returns this.
 
 ### device.transferSync(message)
 - message - an array of one or more read+write transfers
@@ -149,7 +149,7 @@ Returns an object describing the device configuration options.
 
 Asynchronously write device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options).
-The callback gets one argument (err). Returns this.
+The completion callback gets one argument (err). Returns this.
 
 ### device.setOptionsSync(options)
 - options - an object specifying device
@@ -162,7 +162,8 @@ Returns this.
 ### device.close(cb)
 - cb - completion callback
 
-Asynchronous close. The callback gets one argument (err). Returns null.
+Asynchronous close. The completion callback gets one argument (err). Returns
+null.
 
 ### device.closeSync()
 
