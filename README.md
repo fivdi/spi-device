@@ -133,13 +133,14 @@ more read+write transfers. Returns this.
 
 Asynchronously read device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options).
-The callback gets two arguments (err, options). Returns this.
+The callback gets two arguments (err, options) where options is an object
+describing the device configuration options. Returns this.
 
 ### device.getOptionsSync()
 
 Synchronously read device
 [configuration options](https://github.com/fivdi/spi-device#configuration-options).
-Returns an object.
+Returns an object describing the device configuration options.
 
 ### device.setOptions(options, cb)
 - options - an object specifying device
@@ -186,7 +187,9 @@ SPI mode number 3.
 ### Message
 
 An SPI message is an array of one or more read+write transfers. A transfer
-is an object with the following properties, most of which are optional:
+is an object with the properties listed below. Most of the properties are
+optional. Note that although both sendBuffer and receiveBuffer are optional,
+at least one one of them must be specified.
 
 - byteLength - number, 32-bit, the number of bytes to transfer
 - sendBuffer - optional Buffer, transmit data
@@ -198,14 +201,25 @@ before optionally deselecting the device before the next transfer
 - chipSelectChange - optional boolean, true to deselect device before starting
 the next transfer
 
-Note that although both sendBuffer and receiveBuffer are optional, at least
-one one of them must be specified.
-
 ### Configuration options
+
+Device configuration options can be optionally specified when a device is
+opened with the `open` or `openSync` methods. They can also be specified at a
+later point with the `setOptions` or `setOptionsSync` methods. When calling
+these methods, only the options that need to be set need to be specified in the
+options object passed to those methods. All options are optional and the
+appropriate defaults will be used for options that are not specified.
+
+The options supported varies from system to system and will depend on the
+device drivers used on those systems.
+
+Configurations options can be read with the `getOptions` and `getOptionsSync`
+methods.
 
 - mode - number, 2-bit, MODE0, MODE1, MODE2, or MODE3, default MODE0
 - chipSelectHigh - boolean, true for active high chip select, default false
-- lsbFirst - boolean, true least significant bit first transfer, default false
+- lsbFirst - boolean, true for least significant bit first transfer, default
+false
 - threeWire - boolean, true for shared MISO/MOSI signals, default false
 - loopback - boolean, true for loopback mode, default false
 - noChipSelect - boolean, true for 1 device per bus, no chip select, default
@@ -214,5 +228,4 @@ false
 - bitsPerWord - number, 8-bit, device word size, default 8
 - maxSpeedHz - number, 32-bit, device bitrate in Hertz, default system specific
 
-The options supported varies from system to system.
 
