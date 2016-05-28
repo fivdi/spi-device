@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.2.1 / May 28 2016
+===================
 
   * pi-mcp3008-tmp36 Fritzing
   * mask out unused bits in raw value from mcp3008
