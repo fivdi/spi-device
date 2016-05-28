@@ -31,7 +31,7 @@ mcp3008 = spi.open(0, 0, function (err) {
     sendBuffer: new Buffer([0x01, 0xd0, 0x00]), // Sent to read channel 5
     receiveBuffer: new Buffer(3),               // Raw data read from channel 5
     byteLength: 3,
-    speed: 20000 // Use a low bus speed to get a good reading from the TMP36
+    speedHz: 20000 // Use a low bus speed to get a good reading from the TMP36
   }];
 
   if (err) {
@@ -195,7 +195,7 @@ at least one one of them must be specified.
 - byteLength - number, 32-bit, the number of bytes to transfer
 - sendBuffer - optional Buffer, transmit data
 - receiveBuffer - optional Buffer, receive data
-- speed - optional number, 32-bit, override of the device's bitrate in Hertz
+- speedHz - optional number, 32-bit, override of the device's bitrate in Hertz
 - microSecondDelay - optional number, 16-bit, delay after the last bit transfer
 before optionally deselecting the device before the next transfer
 - bitsPerWord - optional number, 8-bit, override of the device's wordsize

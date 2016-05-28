@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * transfer option speed renamed to speedHz
+
 0.1.1 / May 26 2016
 ===================
 

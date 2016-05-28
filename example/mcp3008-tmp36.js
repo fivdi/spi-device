@@ -13,7 +13,7 @@ mcp3008 = spi.open(0, 0, function (err) {
     sendBuffer: new Buffer([0x01, 0xd0, 0x00]), // Sent to read channel 5
     receiveBuffer: new Buffer(3),               // Raw data read from channel 5
     byteLength: 3,
-    speed: 20000 // Use a low bus speed to get a good reading from the TMP36
+    speedHz: 20000 // Use a low bus speed to get a good reading from the TMP36
   }];
 
   if (err) {

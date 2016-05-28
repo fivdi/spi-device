@@ -199,24 +199,24 @@ static int32_t ToSpiTransfers(
       return -1;
     }
 
-    // speed
+    // speedHz
 
-    v8::Local<v8::Value> speed = Nan::Get(msg,
-      Nan::New<v8::String>("speed").ToLocalChecked()).ToLocalChecked();
+    v8::Local<v8::Value> speedHz = Nan::Get(msg,
+      Nan::New<v8::String>("speedHz").ToLocalChecked()).ToLocalChecked();
 
-    if (speed->IsUndefined()) {
-      // No speed defined, nothing to do.
-    } else if (!speed->IsUint32()) {
+    if (speedHz->IsUndefined()) {
+      // No speedHz defined, nothing to do.
+    } else if (!speedHz->IsUint32()) {
       Nan::ThrowError(
         Nan::ErrnoException(
           EINVAL,
           "toSpiTransfers",
-          "transfer speed must be an unsigned integer"
+          "transfer speedHz must be an unsigned integer"
         )
       );
       return -1;
     } else {
-      spiTransfers[i].speed_hz = speed->Uint32Value();
+      spiTransfers[i].speed_hz = speedHz->Uint32Value();
     }
 
     // microSecondDelay

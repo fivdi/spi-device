@@ -14,7 +14,7 @@ function createMessage() {
       sendBuffer: new Buffer([0x01, channelByte, 0x00]),
       receiveBuffer: new Buffer(3),
       byteLength: 3,
-      speed: 1350000,
+      speedHz: 1350000,
       chipSelectChange: true
     });
   });
