@@ -1,7 +1,7 @@
 ## spi-device
 
-SPI device access with **Node.js** on Linux boards like the Raspberry Pi Zero,
-1, 2, or 3. All methods have asynchronous and synchronous forms.
+Low-level SPI device access with **Node.js** on Linux boards like the Raspberry
+Pi Zero, 1, 2, or 3. All methods have asynchronous and synchronous forms.
 
 ## Contents
 
@@ -20,11 +20,6 @@ npm install spi-device
 Determine the temperature using a TMP36 analog temperature sensor wired to
 channel 5 on an MCP3008 SPI A/D converter.
 
-Note that if a driver for the MCP3008 SPI A/D converter is actually needed,
-the [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) package which is based
-on spi-device is likely to be more suitable that the demonstration code shown
-here.
-
 <img src="https://raw.githubusercontent.com/fivdi/spi-device/master/example/pi-mcp3008-tmp36.png">
 
 ```js
@@ -41,18 +36,14 @@ mcp3008 = spi.open(0, 0, function (err) {
     speedHz: 20000 // Use a low bus speed to get a good reading from the TMP36
   }];
 
-  if (err) {
-    throw err;
-  }
+  if (err) throw err;
 
   mcp3008.transfer(message, function (err, message) {
     var rawValue,
       voltage,
       celcius;
 
-    if (err) {
-      throw err;
-    }
+    if (err) throw err;
 
     // Convert raw value from sensor to celcius and log to console
     rawValue = ((message[0].receiveBuffer[1] & 0x03) << 8) +
@@ -64,6 +55,13 @@ mcp3008 = spi.open(0, 0, function (err) {
   });
 });
 ```
+
+spi-device enables low-level access to SPI devices. Often, high-level access
+is required. When this is the case, high-level packages can be built using
+spi-device. An example of such a package is
+[mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) which provides a high-level
+API for accessing an MCP3008 SPI A/D converter and will generally be more
+useful than the low-level demonstration code shown above.
 
 ## API documentation
 

@@ -1,7 +1,7 @@
 {
   "name": "spi-device",
   "version": "0.2.1",
-  "description": "SPI device access with JavaScript",
+  "description": "Low-level SPI device access with Node.js",
   "main": "spi-device.js",
   "directories": {
     "example": "example",

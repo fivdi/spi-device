@@ -16,18 +16,14 @@ mcp3008 = spi.open(0, 0, function (err) {
     speedHz: 20000 // Use a low bus speed to get a good reading from the TMP36
   }];
 
-  if (err) {
-    throw err;
-  }
+  if (err) throw err;
 
   mcp3008.transfer(message, function (err, message) {
     var rawValue,
       voltage,
       celcius;
 
-    if (err) {
-      throw err;
-    }
+    if (err) throw err;
 
     // Convert raw value from sensor to celcius and log to console
     rawValue = ((message[0].receiveBuffer[1] & 0x03) << 8) +
