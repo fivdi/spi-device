@@ -29,7 +29,7 @@ function saveResult(message) {
   result = '';
 
   message.forEach(function (transfer) {
-    result += ((transfer.receiveBuffer[1] << 8) +
+    result += (((transfer.receiveBuffer[1] & 0x03) << 8) +
       transfer.receiveBuffer[2]) + ' ';
   });
 }

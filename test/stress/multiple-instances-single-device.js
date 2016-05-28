@@ -27,7 +27,7 @@ channels.forEach(function (channel) {
 
       channel.transferCount += 1;
 
-      rawValue = (message[0].receiveBuffer[1] << 8) +
+      rawValue = ((message[0].receiveBuffer[1] & 0x03) << 8) +
         message[0].receiveBuffer[2];
       if (rawValue < channel.expectedValue - 1 ||
           rawValue > channel.expectedValue + 1) {

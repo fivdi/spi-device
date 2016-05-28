@@ -26,7 +26,7 @@ mcp3008 = spi.open(0, 0, {mode: spi.MODE0}, function (err) {
 
       count += 1;
 
-      rawValue = (message[0].receiveBuffer[1] << 8) +
+      rawValue = ((message[0].receiveBuffer[1] & 0x03) << 8) +
         message[0].receiveBuffer[2];
       voltage = rawValue * 3.3 / 1023;
       celcius = (voltage - 0.5) * 100;
