@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.2.0 / May 28 2016
+===================
 
   * transfer option speed renamed to speedHz
 
