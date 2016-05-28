@@ -25,7 +25,7 @@ the [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) package which is based
 on spi-device is likely to be more suitable that the demonstration code shown
 here.
 
-<img src="https://raw.githubusercontent.com/fivdi/spi-device/master/examples/pi-mcp3008-tmp36.png">
+<img src="https://raw.githubusercontent.com/fivdi/spi-device/master/example/pi-mcp3008-tmp36.png">
 
 ```js
 var spi = require('spi-device'),
