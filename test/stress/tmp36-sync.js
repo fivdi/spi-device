@@ -9,7 +9,7 @@ var spi = require('bindings')('spi'),
 
 var message = [{
   sendBuffer: new Buffer([0x01, 0xd0, 0x00]),
-  receiveBuffer: new Buffer([0, 0, 0]),
+  receiveBuffer: new Buffer(3),
   byteLength: 3,
   speedHz: 20000
 }];
