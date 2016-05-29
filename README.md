@@ -200,7 +200,8 @@ at least one one of them must be specified.
 - byteLength - number, 32-bit, the number of bytes to transfer
 - sendBuffer - optional Buffer, transmit data
 - receiveBuffer - optional Buffer, receive data
-- speedHz - optional number, 32-bit, override of the device's bitrate in Hertz
+- speedHz - optional number, 32-bit, override of the device's clock frequency
+in Hertz
 - microSecondDelay - optional number, 16-bit, delay after the last bit transfer
 before optionally deselecting the device before the next transfer
 - bitsPerWord - optional number, 8-bit, override of the device's wordsize
@@ -232,6 +233,6 @@ false
 false
 - ready - boolean, true if device pulls low to pause, default false
 - bitsPerWord - number, 8-bit, device word size, default 8
-- maxSpeedHz - number, 32-bit, device bitrate in Hertz, default system specific
-
+- maxSpeedHz - number, 32-bit, device clock frequency in Hertz, default system
+specific
 
