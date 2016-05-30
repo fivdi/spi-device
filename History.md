@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.2.2 / May 30 2016
+===================
 
   * set default configuration options when open is called
 
