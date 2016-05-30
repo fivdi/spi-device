@@ -28,6 +28,16 @@ static int Open(
 }
 
 
+static void setDefaultOpenOptions(SpiOptions &spiOptions) {
+  spiOptions.setMode = true;
+  spiOptions.modeMask = 0;
+  spiOptions.mode = 0;
+
+  spiOptions.setBitsPerWord = true;
+  spiOptions.bitsPerWord = 8;
+}
+
+
 class OpenWorker : public SpiAsyncWorker {
 public:
   OpenWorker(
@@ -95,6 +105,8 @@ void Open(SpiDevice *device, Nan::NAN_METHOD_ARGS_TYPE info) {
   Nan::Callback *callback;
   SpiOptions spiOptions;
 
+  setDefaultOpenOptions(spiOptions);
+
   callback = new Nan::Callback(
     info[info.Length() == 3 ? 2 : 3].As<v8::Function>()
   );
@@ -130,6 +142,8 @@ void OpenSync(SpiDevice *device, Nan::NAN_METHOD_ARGS_TYPE info) {
   uint32_t busNumber = info[0]->Uint32Value();
   uint32_t deviceNumber = info[1]->Uint32Value();
   SpiOptions spiOptions;
+
+  setDefaultOpenOptions(spiOptions);
 
   if (info.Length() > 2) {
     v8::Local<v8::Object> jsOptions = info[2].As<v8::Object>();

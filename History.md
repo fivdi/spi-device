@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * set default configuration options when open is called
+
 0.2.1 / May 28 2016
 ===================
 

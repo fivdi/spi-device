@@ -1,4 +1,6 @@
 #!/bin/sh
+echo default-options
+node default-options
 echo options
 node options
 echo options-sync
