@@ -1,5 +1,5 @@
-unpublished
-===========
+0.2.4 / Oct 02 2016
+===================
 
   * upgraded to nan v2.4.0
 
