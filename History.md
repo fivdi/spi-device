@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * use maybe instances to fix compiler warnings
+
 0.2.4 / Oct 02 2016
 ===================
 

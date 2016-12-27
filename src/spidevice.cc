@@ -50,13 +50,20 @@ v8::Local<v8::Object> SpiDevice::Open(Nan::NAN_METHOD_ARGS_TYPE info) {
   Nan::EscapableHandleScope scope;
 
   v8::Local<v8::Function> cons = Nan::New<v8::Function>(constructor);
-  v8::Local<v8::Object> instance = cons->NewInstance(0, NULL);
+  Nan::MaybeLocal<v8::Object> maybeInstance = Nan::NewInstance(cons, 0, NULL);
+  v8::Local<v8::Object> instance;
 
-  SpiDevice *device = Nan::ObjectWrap::Unwrap<SpiDevice>(instance);
+  if (maybeInstance.IsEmpty()) {
+    Nan::ThrowError("Could not create new SpiDevice instance");
+  } else {
+    instance = maybeInstance.ToLocalChecked();
 
-// TODO what if Open does return Nan::ThrowError?
-// Looks like Open should have a return code that's evalueated here
-  ::Open(device, info);
+    SpiDevice *device = Nan::ObjectWrap::Unwrap<SpiDevice>(instance);
+
+    // TODO what if Open does return Nan::ThrowError?
+    // Looks like Open should have a return code that's evalueated here
+    ::Open(device, info);
+  }
 
   return scope.Escape(instance);
 }
@@ -66,13 +73,20 @@ v8::Local<v8::Object> SpiDevice::OpenSync(Nan::NAN_METHOD_ARGS_TYPE info) {
   Nan::EscapableHandleScope scope;
 
   v8::Local<v8::Function> cons = Nan::New<v8::Function>(constructor);
-  v8::Local<v8::Object> instance = cons->NewInstance(0, NULL);
+  Nan::MaybeLocal<v8::Object> maybeInstance = Nan::NewInstance(cons, 0, NULL);
+  v8::Local<v8::Object> instance;
 
-  SpiDevice *device = Nan::ObjectWrap::Unwrap<SpiDevice>(instance);
+  if (maybeInstance.IsEmpty()) {
+    Nan::ThrowError("Could not create new SpiDevice instance");
+  } else {
+    instance = maybeInstance.ToLocalChecked();
 
-// TODO what if OpenSync does return Nan::ThrowError?
-// Looks like OpenSync should have a return code that's evalueated here
-  ::OpenSync(device, info);
+    SpiDevice *device = Nan::ObjectWrap::Unwrap<SpiDevice>(instance);
+
+    // TODO what if OpenSync does return Nan::ThrowError?
+    // Looks like OpenSync should have a return code that's evalueated here
+    ::OpenSync(device, info);
+  }
 
   return scope.Escape(instance);
 }
