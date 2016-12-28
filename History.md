@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.2.5 / Dec 28 2016
+===================
 
   * use maybe instances to fix compiler warnings
   * upgrade to nan v2.5.0
