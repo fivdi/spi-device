@@ -1,8 +1,7 @@
 ## spi-device
 
-Low-level SPI device access with **Node.js** on Linux boards like the Raspberry
-Pi Zero, 1, 2, or 3 or BeagleBone Black. All methods have asynchronous and
-synchronous forms.
+SPI serial bus access with **Node.js** on Linux boards like the Raspberry
+Pi or BeagleBone. All methods have asynchronous and synchronous forms.
 
 ## Contents
 
