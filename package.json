@@ -23,13 +23,13 @@
     "nan": "~2.5.0"
   },
   "keywords": [
-    "spi",
-    "raspberry",
-    "raspi",
-    "rpi",
-    "pi",
+    "linux",
     "beaglebone",
-    "linux"
+    "pi",
+    "rpi",
+    "raspi",
+    "raspberry",
+    "spi"
   ],
   "author": "fivdi",
   "license": "MIT",
