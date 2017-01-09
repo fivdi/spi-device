@@ -1,6 +1,6 @@
 {
   "name": "spi-device",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "SPI serial bus access with Node.js",
   "main": "spi-device.js",
   "directories": {
