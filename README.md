@@ -205,10 +205,10 @@ at least one one of them must be specified.
 - speedHz - optional number, 32-bit, override of the device's clock frequency
 in Hertz
 - microSecondDelay - optional number, 16-bit, delay after the last bit transfer
-before optionally deselecting the device before the next transfer
+before optionally deselecting the device before the next transfer, default 0
 - bitsPerWord - optional number, 8-bit, override of the device's wordsize
 - chipSelectChange - optional boolean, true to deselect device before starting
-the next transfer
+the next transfer, default false
 
 ### Configuration options
 

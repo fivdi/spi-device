@@ -1,3 +1,9 @@
+Unpublished
+===========
+
+  * document default values for microSecondDelay and chipSelectChange
+  * document supported node versions
+
 0.2.6 / Jan 09 2017
 ===================
 
