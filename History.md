@@ -1,5 +1,5 @@
-Unpublished
-===========
+1.0.0 / Oct 14 2017
+===================
 
   * update dependencies (bindings v1.2.0, nan 2.7.0)
   * document default values for microSecondDelay and chipSelectChange
