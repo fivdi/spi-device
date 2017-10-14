@@ -1,6 +1,7 @@
 Unpublished
 ===========
 
+  * update dependencies (bindings v1.2.0, nan 2.7.0)
   * document default values for microSecondDelay and chipSelectChange
   * document supported node versions
 
