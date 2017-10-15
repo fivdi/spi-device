@@ -1,7 +1,12 @@
+Unpublished
+===========
+
+  * fix typos in history
+
 1.0.0 / Oct 14 2017
 ===================
 
-  * update dependencies (bindings v1.2.0, nan 2.7.0)
+  * update dependencies (bindings v1.3.0, nan v2.7.0)
   * document default values for microSecondDelay and chipSelectChange
   * document supported node versions
 
