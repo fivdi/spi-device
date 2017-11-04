@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * fix typos in history
+  * suppress deprecated-declaration warnings
 
 1.0.0 / Oct 14 2017
 ===================
