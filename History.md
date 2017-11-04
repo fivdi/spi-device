@@ -1,5 +1,5 @@
-Unpublished
-===========
+1.0.1 / Nov 04 2017
+===================
 
   * fix typos in history
   * suppress deprecated-declaration warnings
