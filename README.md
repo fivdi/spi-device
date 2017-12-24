@@ -5,6 +5,8 @@ Pi or BeagleBone. All methods have asynchronous and synchronous forms.
 
 spi-device supports Node.js versions 0.10, 0.12, 4, 5, 6, 7, 8 and 9.
 
+[![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
+
 ## Contents
 
  * [Installation](https://github.com/fivdi/spi-device#installation)
