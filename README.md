@@ -1,4 +1,4 @@
-## spi-device
+# spi-device
 
 SPI serial bus access with **Node.js** on Linux boards like the Raspberry
 Pi or BeagleBone. All methods have asynchronous and synchronous forms.
