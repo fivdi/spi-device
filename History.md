@@ -1,7 +1,8 @@
-Unpublished
-===========
+1.0.2 / Dec 28 2017
+===================
 
   * don't suppress deprecated-declaration warnings
+  * update dependencies (nan v2.8.0)
 
 1.0.1 / Nov 04 2017
 ===================
