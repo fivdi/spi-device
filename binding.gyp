@@ -1,13 +1,6 @@
 {
   "targets": [{
     "target_name": "spi",
-    "conditions": [[
-      "OS == \"linux\"", {
-        "cflags": [
-          "-Wno-deprecated-declarations"
-        ]
-      }]
-    ],
     "include_dirs" : [
       "<!(node -e \"require('nan')\")"
     ],
