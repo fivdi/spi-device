@@ -9,9 +9,9 @@ spi-device supports Node.js versions 0.10, 0.12, 4, 5, 6, 7, 8 and 9.
 
 ## Contents
 
- * [Installation](https://github.com/fivdi/spi-device#installation)
- * [Usage](https://github.com/fivdi/spi-device#usage)
- * [API documentation](https://github.com/fivdi/spi-device#api-documentation)
+ * [Installation](#installation)
+ * [Usage](#usage)
+ * [API documentation](#api-documentation)
 
 ## Installation
 
@@ -81,32 +81,32 @@ use try/catch to handle exceptions or allow them to bubble up.
 
 ### Functions
 
-- [open(busNumber, deviceNumber[, options], cb)](https://github.com/fivdi/spi-device#openbusnumber-devicenumber-options-cb)
-- [openSync(busNumber, deviceNumber[, options])](https://github.com/fivdi/spi-device#opensyncbusnumber-devicenumber-options)
+- [open(busNumber, deviceNumber[, options], cb)](#openbusnumber-devicenumber-options-cb)
+- [openSync(busNumber, deviceNumber[, options])](#opensyncbusnumber-devicenumber-options)
 
 ### Class SpiDevice
 
-- [device.transfer(message, cb)](https://github.com/fivdi/spi-device#devicetransfermessage-cb)
-- [device.transferSync(message)](https://github.com/fivdi/spi-device#devicetransfersyncmessage)
-- [device.getOptions(cb)](https://github.com/fivdi/spi-device#devicegetoptionscb)
-- [device.getOptionsSync()](https://github.com/fivdi/spi-device#devicegetoptionssync)
-- [device.setOptions(options, cb)](https://github.com/fivdi/spi-device#devicesetoptionsoptions-cb)
-- [device.setOptionsSync(options)](https://github.com/fivdi/spi-device#devicesetoptionssyncoptions)
-- [device.close(cb)](https://github.com/fivdi/spi-device#deviceclosecb)
-- [device.closeSync()](https://github.com/fivdi/spi-device#deviceclosesync)
+- [device.transfer(message, cb)](#devicetransfermessage-cb)
+- [device.transferSync(message)](#devicetransfersyncmessage)
+- [device.getOptions(cb)](#devicegetoptionscb)
+- [device.getOptionsSync()](#devicegetoptionssync)
+- [device.setOptions(options, cb)](#devicesetoptionsoptions-cb)
+- [device.setOptionsSync(options)](#devicesetoptionssyncoptions)
+- [device.close(cb)](#deviceclosecb)
+- [device.closeSync()](#deviceclosesync)
 
 ### Constants
 
-- [MODE0](https://github.com/fivdi/spi-device#mode0)
-- [MODE1](https://github.com/fivdi/spi-device#mode1)
-- [MODE2](https://github.com/fivdi/spi-device#mode2)
-- [MODE3](https://github.com/fivdi/spi-device#mode3)
+- [MODE0](#mode0)
+- [MODE1](#mode1)
+- [MODE2](#mode2)
+- [MODE3](#mode3)
 
 ### open(busNumber, deviceNumber[, options], cb)
 - busNumber - the number of the SPI bus to open, 0 for `/dev/spidev0.n`, 1 for `/dev/spidev1.n`, ...
 - deviceNumber - the number of the SPI device to open, 0 for `/dev/spidevn.0`, 1 for `/dev/spidevn.1`, ...
 - options - an optional object specifying device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options)
+[configuration options](#configuration-options)
 - cb - completion callback
 
 Asynchronous open. Returns a new SpiDevice object. The completion callback gets
@@ -117,7 +117,7 @@ completion callback is called.
 - busNumber - the number of the SPI bus to open, 0 for `/dev/spidev0.n`, 1 for `/dev/spidev1.n`, ...
 - deviceNumber - the number of the SPI device to open, 0 for `/dev/spidevn.0`, 1 for `/dev/spidevn.1`, ...
 - options - an optional object specifying device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options)
+[configuration options](#configuration-options)
 
 Synchronous open. Returns a new SpiDevice object.
 
@@ -126,7 +126,7 @@ Synchronous open. Returns a new SpiDevice object.
 - cb - completion callback
 
 Asynchronous message transfer. An SPI
-[message](https://github.com/fivdi/spi-device#message) is an array of one or
+[message](#message) is an array of one or
 more read+write transfers. The completion callback gets two arguments (err,
 message). Returns this.
 
@@ -134,38 +134,38 @@ message). Returns this.
 - message - an array of one or more read+write transfers
 
 Synchronous message transfer. An SPI
-[message](https://github.com/fivdi/spi-device#message) is an array of one or
+[message](#message) is an array of one or
 more read+write transfers. Returns this.
 
 ### device.getOptions(cb)
 - cb - completion callback
 
 Asynchronously read device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options).
+[configuration options](#configuration-options).
 The completion callback gets two arguments (err, options) where options is an
 object describing the device configuration options. Returns this.
 
 ### device.getOptionsSync()
 
 Synchronously read device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options).
+[configuration options](#configuration-options).
 Returns an object describing the device configuration options.
 
 ### device.setOptions(options, cb)
 - options - an object specifying device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options)
+[configuration options](#configuration-options)
 - cb - completion callback
 
 Asynchronously write device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options).
+[configuration options](#configuration-options).
 The completion callback gets one argument (err). Returns this.
 
 ### device.setOptionsSync(options)
 - options - an object specifying device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options)
+[configuration options](#configuration-options)
 
 Synchronously write device
-[configuration options](https://github.com/fivdi/spi-device#configuration-options).
+[configuration options](#configuration-options).
 Returns this.
 
 ### device.close(cb)
