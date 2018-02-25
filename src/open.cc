@@ -72,7 +72,7 @@ public:
 
     device_->SetFd(fd_);
 
-    callback->Call(1, argv);
+    callback->Call(1, argv, async_resource);
   }
 
 private:
