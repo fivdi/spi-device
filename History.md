@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * update dependencies (nan v2.9.2)
+  * drop support for node.js v0.10, v0.12, v5 and v7
 
 1.0.2 / Dec 28 2017
 ===================
