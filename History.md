@@ -1,5 +1,5 @@
-Unpublished
-===========
+2.0.0 / Feb 25 2018
+===================
 
   * update dependencies (nan v2.9.2)
   * drop support for node.js v0.10, v0.12, v5 and v7
