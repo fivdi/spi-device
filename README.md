@@ -11,7 +11,7 @@ spi-device supports Node.js versions 4, 6, 8 and 9.
 
  * [Installation](#installation)
  * [Usage](#usage)
- * [API documentation](#api-documentation)
+ * [API Documentation](#api-documentation)
 
 ## Installation
 
@@ -67,7 +67,7 @@ spi-device. An example of such a package is
 API for accessing an MCP3008 SPI A/D converter and will generally be more
 useful than the low-level demonstration code shown above.
 
-## API documentation
+## API Documentation
 
 All methods have asynchronous and synchronous forms.
 
@@ -212,7 +212,7 @@ before optionally deselecting the device before the next transfer, default 0
 - chipSelectChange - optional boolean, true to deselect device before starting
 the next transfer, default false
 
-### Configuration options
+### Configuration Options
 
 Device configuration options can be optionally specified when a device is
 opened with the `open` or `openSync` methods. They can also be specified at a
