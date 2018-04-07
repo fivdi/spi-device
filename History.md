@@ -1,5 +1,5 @@
-Unpublished
-===========
+2.0.1 / Apr 07 2018
+===================
 
   * update dependencies (nan v2.10.0)
 
