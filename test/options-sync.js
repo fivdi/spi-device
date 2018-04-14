@@ -1,15 +1,13 @@
 'use strict';
 
-var spi = require('bindings')('spi'),
-  assert = require('assert'),
-  device = spi.openSync(0, 0),
-  originalOptions,
-  options,
-  newOptions;
+const spi = require('bindings')('spi');
+const assert = require('assert');
 
-originalOptions = device.getOptionsSync();
+const device = spi.openSync(0, 0);
 
-options = {
+const originalOptions = device.getOptionsSync();
+
+const options = {
   mode: spi.MODE2,
   chipSelectHigh: false,
   lsbFirst: false, // pi only supports msb first
@@ -20,9 +18,10 @@ options = {
   bitsPerWord: 8, // pi only supports 8 bit words
   maxSpeedHz: originalOptions.maxSpeedHz + 1e6
 };
+
 device.setOptionsSync(options);
 
-newOptions = device.getOptionsSync();
+const newOptions = device.getOptionsSync();
 
 assert.strictEqual(
   options.mode,

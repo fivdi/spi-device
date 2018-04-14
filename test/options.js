@@ -1,18 +1,15 @@
 'use strict';
 
-var spi = require('bindings')('spi'),
-  assert = require('assert'),
-  device;
+const spi = require('bindings')('spi');
+const assert = require('assert');
 
-device = spi.open(0, 0, function (err) {
+const device = spi.open(0, 0, (err) => {
   assert(!err, 'can\'t open device');
 
-  device.getOptions(function (err, originalOptions) {
-    var options;
-
+  device.getOptions((err, originalOptions) => {
     assert(!err, 'can\'t get original options');
 
-    options = {
+    const options = {
       mode: spi.MODE3,
       chipSelectHigh: true,
       lsbFirst: false,
@@ -22,12 +19,12 @@ device = spi.open(0, 0, function (err) {
       ready: false,
       bitsPerWord: 8,
       maxSpeedHz: originalOptions.maxSpeedHz + 1e4
-    }
+    };
 
-    device.setOptions(options, function (err) {
+    device.setOptions(options, (err) => {
       assert(!err, 'can\'t set options');
 
-      device.getOptions(function (err, newOptions) {
+      device.getOptions((err, newOptions) => {
         assert(!err, 'can\'t get new options');
 
         assert.strictEqual(
@@ -84,9 +81,9 @@ device = spi.open(0, 0, function (err) {
           'can\'t set maxSpeedHz'
         );
 
-        device.setOptions(originalOptions, function (err) {
+        device.setOptions(originalOptions, (err) => {
           assert(!err, 'can\'t set options');
-        })
+        });
       });
     });
   });
