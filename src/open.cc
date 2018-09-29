@@ -100,8 +100,8 @@ void Open(SpiDevice *device, Nan::NAN_METHOD_ARGS_TYPE info) {
     );
   }
 
-  uint32_t busNumber = info[0]->Uint32Value();
-  uint32_t deviceNumber = info[1]->Uint32Value();
+  uint32_t busNumber = Nan::To<uint32_t>(info[0]).FromJust();
+  uint32_t deviceNumber = Nan::To<uint32_t>(info[1]).FromJust();
   Nan::Callback *callback;
   SpiOptions spiOptions;
 
@@ -139,8 +139,8 @@ void OpenSync(SpiDevice *device, Nan::NAN_METHOD_ARGS_TYPE info) {
     );
   }
 
-  uint32_t busNumber = info[0]->Uint32Value();
-  uint32_t deviceNumber = info[1]->Uint32Value();
+  uint32_t busNumber = Nan::To<uint32_t>(info[0]).FromJust();
+  uint32_t deviceNumber = Nan::To<uint32_t>(info[1]).FromJust();
   SpiOptions spiOptions;
 
   setDefaultOpenOptions(spiOptions);

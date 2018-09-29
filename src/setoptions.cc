@@ -96,7 +96,7 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint32_t spiMode = mode->Uint32Value();
+    uint32_t spiMode = Nan::To<uint32_t>(mode).FromJust();
 
     if (spiMode > SPI_MODE_3) {
       Nan::ThrowError(
@@ -132,7 +132,7 @@ int32_t ToSpiOptions(
     return -1;
   } else {
     uint8_t spiChipSelectHigh =
-      chipSelectHigh->BooleanValue() ? SPI_CS_HIGH : 0;
+      Nan::To<bool>(chipSelectHigh).FromJust() ? SPI_CS_HIGH : 0;
 
     spiOptions.mode |= spiChipSelectHigh;
     spiOptions.modeMask &= ~SPI_CS_HIGH;
@@ -156,7 +156,8 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint8_t spiLsbFirst = lsbFirst->BooleanValue() ? SPI_LSB_FIRST : 0;
+    uint8_t spiLsbFirst =
+      Nan::To<bool>(lsbFirst).FromJust() ? SPI_LSB_FIRST : 0;
 
     spiOptions.mode |= spiLsbFirst;
     spiOptions.modeMask &= ~SPI_LSB_FIRST;
@@ -180,7 +181,8 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint8_t spiThreeWire = threeWire->BooleanValue() ? SPI_3WIRE : 0;
+    uint8_t spiThreeWire =
+      Nan::To<bool>(threeWire).FromJust() ? SPI_3WIRE : 0;
 
     spiOptions.mode |= spiThreeWire;
     spiOptions.modeMask &= ~SPI_3WIRE;
@@ -204,7 +206,7 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint8_t spiLoopback = loopback->BooleanValue() ? SPI_LOOP : 0;
+    uint8_t spiLoopback = Nan::To<bool>(loopback).FromJust() ? SPI_LOOP : 0;
 
     spiOptions.mode |= spiLoopback;
     spiOptions.modeMask &= ~SPI_LOOP;
@@ -228,7 +230,8 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint8_t spiNoChipSelect = noChipSelect->BooleanValue() ? SPI_NO_CS : 0;
+    uint8_t spiNoChipSelect =
+      Nan::To<bool>(noChipSelect).FromJust() ? SPI_NO_CS : 0;
 
     spiOptions.mode |= spiNoChipSelect;
     spiOptions.modeMask &= ~SPI_NO_CS;
@@ -252,7 +255,7 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint8_t spiReady = ready->BooleanValue() ? SPI_READY : 0;
+    uint8_t spiReady = Nan::To<bool>(ready).FromJust() ? SPI_READY : 0;
 
     spiOptions.mode |= spiReady;
     spiOptions.modeMask &= ~SPI_READY;
@@ -276,7 +279,7 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    uint32_t bits = bitsPerWord->Uint32Value();
+    uint32_t bits = Nan::To<uint32_t>(bitsPerWord).FromJust();
 
     if (bits > 255) {
       Nan::ThrowError(
@@ -310,7 +313,7 @@ int32_t ToSpiOptions(
     );
     return -1;
   } else {
-    spiOptions.maxSpeedHz = maxSpeedHz->Uint32Value();
+    spiOptions.maxSpeedHz = Nan::To<uint32_t>(maxSpeedHz).FromJust();
     spiOptions.setMaxSpeedHz = true;
   }
 

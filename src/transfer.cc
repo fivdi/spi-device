@@ -120,7 +120,7 @@ static int32_t ToSpiTransfers(
       return -1;
     }
 
-    uint32_t length = byteLength->Uint32Value();
+    uint32_t length = Nan::To<uint32_t>(byteLength).FromJust();
     spiTransfers[i].len = length;
 
     // sendBuffer
@@ -216,7 +216,7 @@ static int32_t ToSpiTransfers(
       );
       return -1;
     } else {
-      spiTransfers[i].speed_hz = speedHz->Uint32Value();
+      spiTransfers[i].speed_hz = Nan::To<uint32_t>(speedHz).FromJust();
     }
 
     // microSecondDelay
@@ -236,7 +236,7 @@ static int32_t ToSpiTransfers(
       );
       return -1;
     } else {
-      uint32_t delay = microSecondDelay->Uint32Value();
+      uint32_t delay = Nan::To<uint32_t>(microSecondDelay).FromJust();
 
       if (delay >= 65536) {
         Nan::ThrowError(
@@ -269,7 +269,7 @@ static int32_t ToSpiTransfers(
       );
       return -1;
     } else {
-      uint32_t bits = bitsPerWord->Uint32Value();
+      uint32_t bits = Nan::To<uint32_t>(bitsPerWord).FromJust();
 
       if (bits >= 256) {
         Nan::ThrowError(
@@ -303,7 +303,8 @@ static int32_t ToSpiTransfers(
       );
       return -1;
     } else {
-      spiTransfers[i].cs_change = chipSelectChange->BooleanValue() ? 1 : 0;
+      spiTransfers[i].cs_change =
+        Nan::To<bool>(chipSelectChange).FromJust() ? 1 : 0;
     }
   }
 
