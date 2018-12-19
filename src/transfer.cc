@@ -83,7 +83,7 @@ static int32_t ToSpiTransfers(
   for (unsigned i = 0; i < message->Length(); ++i) {
     // Transfer
 
-    v8::Local<v8::Value> transfer = message->Get(i);
+    v8::Local<v8::Value> transfer = Nan::Get(message, i).ToLocalChecked();
 
     if (!transfer->IsObject()) {
       Nan::ThrowError(

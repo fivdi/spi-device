@@ -32,7 +32,7 @@ NAN_MODULE_INIT(SpiDevice::Init) {
   Nan::SetPrototypeMethod(tpl, "setOptions", SetOptions);
   Nan::SetPrototypeMethod(tpl, "setOptionsSync", SetOptionsSync);
 
-  constructor.Reset(tpl->GetFunction());
+  constructor.Reset(Nan::GetFunction(tpl).ToLocalChecked());
 
   uv_mutex_init(&optionAccessLock);
 }

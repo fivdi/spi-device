@@ -29,39 +29,48 @@ static int GetOptions(int fd, SpiOptions &spiOptions) {
 static void ToJsOptions(v8::Local<v8::Object> &jsOptions,
   SpiOptions &spiOptions
 ) {
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("mode").ToLocalChecked(),
     Nan::New<v8::Uint32>(spiOptions.mode & (SPI_CPOL | SPI_CPHA))
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("chipSelectHigh").ToLocalChecked(),
     Nan::New<v8::Boolean>(spiOptions.mode & SPI_CS_HIGH)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("lsbFirst").ToLocalChecked(),
     Nan::New<v8::Boolean>(spiOptions.mode & SPI_LSB_FIRST)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("threeWire").ToLocalChecked(),
     Nan::New<v8::Boolean>(spiOptions.mode & SPI_3WIRE)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("loopback").ToLocalChecked(),
     Nan::New<v8::Boolean>(spiOptions.mode & SPI_LOOP)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("noChipSelect").ToLocalChecked(),
     Nan::New<v8::Boolean>(spiOptions.mode & SPI_NO_CS)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("ready").ToLocalChecked(),
     Nan::New<v8::Boolean>(spiOptions.mode & SPI_READY)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("bitsPerWord").ToLocalChecked(),
     Nan::New<v8::Uint32>(spiOptions.bitsPerWord)
   );
-  jsOptions->Set(
+  Nan::Set(
+    jsOptions,
     Nan::New("maxSpeedHz").ToLocalChecked(),
     Nan::New<v8::Uint32>(spiOptions.maxSpeedHz)
   );

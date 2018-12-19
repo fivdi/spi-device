@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * fix deprecation warnings on node.js v12 nightly
+
 2.0.5 / Oct 13 2018
 ===================
 
