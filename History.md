@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * fix deprecation warnings on node.js v12 nightly
+  * update dependencies (nan v2.12.1, bindings 1.3.1)
 
 2.0.5 / Oct 13 2018
 ===================
