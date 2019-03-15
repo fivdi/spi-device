@@ -1,11 +1,14 @@
+[![Build Status](https://travis-ci.org/fivdi/spi-device.svg?branch=master)](https://travis-ci.org/fivdi/spi-device)
+[![npm Version](http://img.shields.io/npm/v/spi-device.svg)](https://www.npmjs.com/package/spi-device)
+[![Downloads Per Month](http://img.shields.io/npm/dm/spi-device.svg)](https://www.npmjs.com/package/spi-device)
+[![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
+
 # spi-device
 
 SPI serial bus access with **Node.js** on Linux boards like the Raspberry
 Pi or BeagleBone. All methods have asynchronous and synchronous forms.
 
 spi-device supports Node.js versions 4, 6, 8, 10 and 12.
-
-[![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
 
 ## Contents
 
