@@ -1,5 +1,5 @@
-Unpublished
-===========
+2.0.7 / Mar 15 2019
+===================
 
   * update dependencies (nan v2.13.1, bindings v1.5.0)
   * document node 12 support
