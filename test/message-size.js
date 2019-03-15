@@ -6,7 +6,7 @@ const assert = require('assert');
 const createMessage = (transferCount) => {
   let message = [];
 
-  for (let count = 0; count != transferCount; count += 1) {
+  for (let count = 0; count !== transferCount; count += 1) {
     message.push({
       sendBuffer: Buffer.from([0x01, 0xc0, 0x00]),
       receiveBuffer: Buffer.alloc(3),

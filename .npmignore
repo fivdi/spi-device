@@ -1,0 +1,6 @@
+*~
+.jshintrc
+.travis.yml
+build/
+node_modules/
+

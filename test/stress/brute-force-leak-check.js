@@ -55,7 +55,7 @@ const transfer = (mcp3008, cb) => {
     assert(!err, 'can\'t transfer with mcp3008');
     saveResult(message);
     cb();
-  })
+  });
 };
 
 const accessOptions = (mcp3008, cb) => {

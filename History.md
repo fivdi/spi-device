@@ -3,6 +3,7 @@ Unpublished
 
   * update dependencies (nan v2.13.1, bindings v1.5.0)
   * document node 12 support
+  * lint with jshint
 
 2.0.6 / Dec 19 2018
 ===================

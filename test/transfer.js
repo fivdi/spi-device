@@ -35,7 +35,7 @@ const transfer = (mcp3008, cb) => {
   mcp3008.transfer(createMessage(), (err, message) => {
     assert(!err, 'can\'t transfer with mcp3008');
     cb();
-  })
+  });
 };
 
 const accessOptions = (mcp3008, cb) => {
@@ -59,7 +59,7 @@ const async = () => {
       });
     });
   });
-}
+};
 
 async();
 
