@@ -8,12 +8,6 @@
   "quotmark": "single",
   "strict": "global",
   "undef": true,
-  "varstmt": true,
-  "globals": {
-    "afterEach": false,
-    "beforeEach": false,
-    "describe": false,
-    "it": false
-  }
+  "varstmt": true
 }
 
