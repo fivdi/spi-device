@@ -27,13 +27,14 @@
     "jshint": "^2.10.2"
   },
   "keywords": [
-    "linux",
-    "beaglebone",
-    "pi",
-    "rpi",
-    "raspi",
+    "spi",
+    "iot",
     "raspberry",
-    "spi"
+    "raspi",
+    "rpi",
+    "pi",
+    "beaglebone",
+    "linux"
   ],
   "author": "fivdi",
   "license": "MIT",
