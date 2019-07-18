@@ -3,6 +3,7 @@
   "version": "2.0.8",
   "description": "SPI serial bus access with Node.js",
   "main": "spi-device.js",
+  "types": "spi-device.d.ts",
   "directories": {
     "example": "example",
     "test": "test"
@@ -24,7 +25,8 @@
     "nan": "^2.14.0"
   },
   "devDependencies": {
-    "jshint": "^2.10.2"
+    "jshint": "^2.10.2",
+    "@types/node": "^12.6.8"
   },
   "keywords": [
     "spi",
