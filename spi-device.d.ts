@@ -6,7 +6,7 @@ export type MODE3 = 3;
 export type SpiMode = MODE0 | MODE1 | MODE2 | MODE3;
 
 export type SpiOptions = {
-    mode?: number, // 2-bit, MODE0, MODE1, MODE2, or MODE3, default MODE0
+    mode?: SpiMode, // 2-bit, MODE0, MODE1, MODE2, or MODE3, default MODE0
     chipSelectHigh?: boolean, // true for active high chip select, default false
     lsbFirst?: boolean, // true for least significant bit first transfer, default false
     threeWire?: boolean, // true for shared MISO/MOSI signals, default false
@@ -17,7 +17,7 @@ export type SpiOptions = {
     maxSpeedHz?: number // 32-bit, device clock frequency in Hertz, default system specific
 }
 
-export type SpiMessage = {
+export type SpiMessage = [{
     byteLength: number, // 32-bit, the number of bytes to transfer
     sendBuffer?: Buffer, // transmit data
     receiveBuffer?: Buffer, // receive data
@@ -25,9 +25,9 @@ export type SpiMessage = {
     microSecondDelay?: number, // 16-bit, delay after the last bit transfer before optionally deselecting the device before the next transfer, default 0
     bitsPerWord?: number, // 8-bit, override of the device's wordsize
     chipSelectChange?: boolean, // true to deselect device before starting the next transfer, default false
-}
+}]
 
-export type CompleteCallback = (err?: Error) => void;
+export type CompleteCallback = (err: Error | null | undefined) => void;
 export type TransferCallback = (err: Error | null | undefined, message: SpiMessage) => void;
 
 export class SpiDevice {
