@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * add type definitions for TypeScript (thank you [@huming2207](https://github.com/huming2207))
+
 2.0.8 / Jun 16 2019
 ===================
 
