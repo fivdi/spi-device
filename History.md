@@ -1,5 +1,5 @@
-Unpublished
-===========
+2.0.9 / Sep 07 2019
+===================
 
   * add type definitions for TypeScript (thank you [@huming2207](https://github.com/huming2207))
   * suppress cast-function-type warnings
