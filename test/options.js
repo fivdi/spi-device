@@ -3,7 +3,7 @@
 const spi = require('bindings')('spi');
 const assert = require('assert');
 
-const device = spi.open(0, 0, (err) => {
+const device = spi.open(0, 0, err => {
   assert(!err, 'can\'t open device');
 
   device.getOptions((err, originalOptions) => {
@@ -21,7 +21,7 @@ const device = spi.open(0, 0, (err) => {
       maxSpeedHz: originalOptions.maxSpeedHz + 1e4
     };
 
-    device.setOptions(options, (err) => {
+    device.setOptions(options, err => {
       assert(!err, 'can\'t set options');
 
       device.getOptions((err, newOptions) => {
@@ -81,7 +81,7 @@ const device = spi.open(0, 0, (err) => {
           'can\'t set maxSpeedHz'
         );
 
-        device.setOptions(originalOptions, (err) => {
+        device.setOptions(originalOptions, err => {
           assert(!err, 'can\'t set options');
         });
       });

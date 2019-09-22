@@ -7,11 +7,11 @@ let count = 0;
 let totalCount = 0;
 let result;
 
-const createMessage = () => {
+const createMessage = _ => {
   let message = [];
   let channelByte;
 
-  [0, 1, 4, 5].forEach((channel) => {
+  [0, 1, 4, 5].forEach(channel => {
     channelByte = 0x80 + (channel << 4);
 
     message.push({
@@ -26,16 +26,16 @@ const createMessage = () => {
   return message;
 };
 
-const saveResult = (message) => {
+const saveResult = message => {
   result = '';
 
-  message.forEach((transfer) => {
+  message.forEach(transfer => {
     result += (((transfer.receiveBuffer[1] & 0x03) << 8) +
       transfer.receiveBuffer[2]) + ' ';
   });
 };
 
-const sync = () => {
+const sync = _ => {
   const mcp3008 = spi.openSync(0, 0);
   const message = createMessage();
 
@@ -68,12 +68,12 @@ const accessOptions = (mcp3008, cb) => {
   });
 };
 
-const async = () => {
-  const mcp3008 = spi.open(0, 0, (err) => {
+const async = _ => {
+  const mcp3008 = spi.open(0, 0, err => {
     assert(!err, 'can\'t open mcp3008');
 
-    accessOptions(mcp3008, () => {
-      mcp3008.close((err) => {
+    accessOptions(mcp3008, _ => {
+      mcp3008.close(err => {
         assert(!err, 'can\'t close mcp3008');
         sync();
       });
@@ -81,7 +81,7 @@ const async = () => {
   });
 };
 
-setInterval(() => {
+setInterval(_ => {
   console.log(totalCount + ' ' + count + ' - ' + result);
   count = 0;
 }, 1000);

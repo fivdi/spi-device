@@ -33,7 +33,7 @@ channel 5 on an MCP3008 SPI A/D converter.
 const spi = require('spi-device');
 
 // The MCP3008 is on bus 0 and it's device 0
-const mcp3008 = spi.open(0, 0, (err) => {
+const mcp3008 = spi.open(0, 0, err => {
   // An SPI message is an array of one or more read+write transfers
   const message = [{
     sendBuffer: Buffer.from([0x01, 0xd0, 0x00]), // Sent to read channel 5

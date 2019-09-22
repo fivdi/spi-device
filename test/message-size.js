@@ -3,7 +3,7 @@
 const spi = require('bindings')('spi');
 const assert = require('assert');
 
-const createMessage = (transferCount) => {
+const createMessage = transferCount => {
   let message = [];
 
   for (let count = 0; count !== transferCount; count += 1) {
@@ -19,19 +19,19 @@ const createMessage = (transferCount) => {
   return message;
 };
 
-const transferNothing = () => {
+const transferNothing = _ => {
   const mcp3008 = spi.openSync(0, 0);
   mcp3008.transferSync([]);
   mcp3008.closeSync();
 };
 
-const transferAsManyAsPossible = () => {
+const transferAsManyAsPossible = _ => {
   const mcp3008 = spi.openSync(0, 0);
   mcp3008.transferSync(createMessage(511)); // works
   mcp3008.closeSync();
 };
 
-const transferToMany = () => {
+const transferToMany = _ => {
   const mcp3008 = spi.openSync(0, 0);
 
   try {
@@ -44,7 +44,7 @@ const transferToMany = () => {
   mcp3008.closeSync();
 };
 
-const transferMessageThatsTooLong = () => {
+const transferMessageThatsTooLong = _ => {
   const mcp3008 = spi.openSync(0, 0),
     message = [{
       sendBuffer: Buffer.alloc(10000),

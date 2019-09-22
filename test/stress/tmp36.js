@@ -3,7 +3,7 @@
 const spi = require('bindings')('spi');
 const assert = require('assert');
 
-const mcp3008 = spi.open(0, 0, {mode: spi.MODE0}, (err) => {
+const mcp3008 = spi.open(0, 0, {mode: spi.MODE0}, err => {
   let rawValue;
   let celcius;
   let count = 0;
@@ -18,7 +18,7 @@ const mcp3008 = spi.open(0, 0, {mode: spi.MODE0}, (err) => {
     speedHz: 20000
   }];
 
-  const next = () => {
+  const next = _ => {
     mcp3008.transfer(message, (err, message) => {
       assert(!err, 'can\'t transfer message');
 
@@ -35,7 +35,7 @@ const mcp3008 = spi.open(0, 0, {mode: spi.MODE0}, (err) => {
 
   next();
 
-  setInterval(() => {
+  setInterval(_ => {
     total += count;
     console.log(count + ' ' + total + ' ' + rawValue + ' '  + celcius);
     count = 0;

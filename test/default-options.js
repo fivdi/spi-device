@@ -3,7 +3,7 @@
 const spi = require('bindings')('spi');
 const assert = require('assert');
 
-const checkDefaultOptions = (options) => {
+const checkDefaultOptions = options => {
   assert.strictEqual(options.mode, spi.MODE0, 'default mode incorrect');
   assert.strictEqual(options.chipSelectHigh, false, 'default chipSelectHigh incorrect');
   assert.strictEqual(options.lsbFirst, false, 'default lsbFirst incorrect');
@@ -14,11 +14,11 @@ const checkDefaultOptions = (options) => {
   assert.strictEqual(options.bitsPerWord, 8, 'default bitsPerWord incorrect');
 };
 
-const checkOptions = () => {
+const checkOptions = _ => {
   let device = spi.openSync(0, 0);
   checkDefaultOptions(device.getOptionsSync());
 
-  device = spi.open(0, 0, (err) => {
+  device = spi.open(0, 0, err => {
     assert(!err, 'can\'t open device');
     device.getOptions((err, options) => {
       assert(!err, 'can\'t get options');

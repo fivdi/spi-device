@@ -11,7 +11,7 @@ const channels = [
 
 let temperature;
 
-channels.forEach((channel) => {
+channels.forEach(channel => {
   const mcp3008 = spi.openSync(0, 0);
   const channelByte = 0x80 + (channel.number << 4);
   const message = [{
@@ -21,7 +21,7 @@ channels.forEach((channel) => {
     speedHz: 2000000
   }];
 
-  const next = () => {
+  const next = _ => {
     mcp3008.transfer(message, (err, message) => {
       assert(!err, 'can\'t transfer with mcp3008');
 
@@ -47,7 +47,7 @@ channels.forEach((channel) => {
   next();
 });
 
-setInterval(() => {
+setInterval(_ => {
   const message = [{
     sendBuffer: Buffer.from([0x01, 0xd0, 0x00]),
     receiveBuffer: Buffer.alloc(3),
@@ -64,10 +64,10 @@ setInterval(() => {
   temperature = (voltage - 0.5) * 100;
 }, 1000);
 
-setInterval(() => {
+setInterval(_ => {
   console.log('temperature: ' + temperature);
 
-  channels.forEach((channel) => {
+  channels.forEach(channel => {
     console.log(
       'channel: ' + channel.number +
       ', errors: ' + channel.errors +
