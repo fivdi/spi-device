@@ -169,12 +169,12 @@ Returns this.
 ### device.close(cb)
 - cb - completion callback
 
-Asynchronous close. The completion callback gets one argument (err). Returns
-null.
+Asynchronous close. Frees system resources used by this instance. The
+completion callback gets one argument (err). Returns null.
 
 ### device.closeSync()
 
-Synchronous close. Returns null.
+Synchronous close. Frees system resources used by this instance. Returns null.
 
 ### MODE0
 
