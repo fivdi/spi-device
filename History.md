@@ -1,3 +1,8 @@
+3.0.1 / Apr 08 2020
+===================
+
+  * fix TypeScript type definition of SpiMessage
+
 3.0.0 / Sep 22 2019
 ===================
 
