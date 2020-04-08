@@ -17,7 +17,7 @@ export type SpiOptions = {
     maxSpeedHz?: number // 32-bit, device clock frequency in Hertz, default system specific
 }
 
-export type SpiMessage = [{
+export type SpiMessage = {
     byteLength: number, // 32-bit, the number of bytes to transfer
     sendBuffer?: Buffer, // transmit data
     receiveBuffer?: Buffer, // receive data
@@ -25,7 +25,7 @@ export type SpiMessage = [{
     microSecondDelay?: number, // 16-bit, delay after the last bit transfer before optionally deselecting the device before the next transfer, default 0
     bitsPerWord?: number, // 8-bit, override of the device's wordsize
     chipSelectChange?: boolean, // true to deselect device before starting the next transfer, default false
-}]
+}[]
 
 export type CompleteCallback = (err: Error | null | undefined) => void;
 export type TransferCallback = (err: Error | null | undefined, message: SpiMessage) => void;
