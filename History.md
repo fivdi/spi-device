@@ -1,5 +1,5 @@
-Unpublished
-===========
+3.1.0 / Apr 25 2020
+===================
 
   * update dependencies (nan v2.14.1, jshint v2.11.0, @types/node v13.13.2)
   * drop support for node.js 6, add support for node.js 14
