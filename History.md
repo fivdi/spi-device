@@ -1,5 +1,5 @@
-Unpublished
-===========
+3.1.1 / Apr 30 2021
+===================
 
   * drop support for node.js 8 and 13, add support for node.js 15 and 16
   * update dependencies
