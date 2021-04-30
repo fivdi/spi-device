@@ -8,7 +8,7 @@
 SPI serial bus access with **Node.js** on Linux boards like the Raspberry
 Pi or BeagleBone. All methods have asynchronous and synchronous forms.
 
-spi-device supports Node.js versions 8, 10, 12, 13 and 14.
+spi-device supports Node.js versions 10, 12, 14, 15 and 16.
 
 ## Contents
 

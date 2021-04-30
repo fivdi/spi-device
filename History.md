@@ -1,6 +1,7 @@
 Unpublished
 ===========
 
+  * drop support for node.js 8 and 13, add support for node.js 15 and 16
   * update dependencies
   * fix chipSelectHigh documentation and tests (fixes [#16](https://github.com/fivdi/spi-device/issues/16) and [#18](https://github.com/fivdi/spi-device/issues/18))
 
