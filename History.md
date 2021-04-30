@@ -1,6 +1,7 @@
 Unpublished
 ===========
 
+  * update dependencies
   * fix chipSelectHigh documentation and tests (fixes [#16](https://github.com/fivdi/spi-device/issues/16) and [#18](https://github.com/fivdi/spi-device/issues/18))
 
 3.1.0 / Apr 25 2020
