@@ -9,7 +9,8 @@ const originalOptions = device.getOptionsSync();
 
 const options = {
   mode: spi.MODE2,
-  chipSelectHigh: false,
+  // The semantics of chipSelectHigh have changed in kernel 5 and higher
+  //chipSelectHigh: false,
   lsbFirst: false, // pi only supports msb first
   threeWire: false,
   loopback: false, // pi doesn't support loopback
@@ -29,11 +30,12 @@ assert.strictEqual(
   'can\'t set mode'
 );
 
-assert.strictEqual(
-  options.chipSelectHigh,
-  newOptions.chipSelectHigh,
-  'can\'t set chipSelectHigh'
-);
+// The semantics of chipSelectHigh have changed in kernel 5 and higher
+//assert.strictEqual(
+//  options.chipSelectHigh,
+//  newOptions.chipSelectHigh,
+//  'can\'t set chipSelectHigh'
+//);
 
 assert.strictEqual(
   options.lsbFirst,

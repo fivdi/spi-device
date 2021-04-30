@@ -11,7 +11,8 @@ const device = spi.open(0, 0, err => {
 
     const options = {
       mode: spi.MODE3,
-      chipSelectHigh: true,
+      // The semantics of chipSelectHigh have changed in kernel 5 and higher
+      //chipSelectHigh: true,
       lsbFirst: false,
       threeWire: true,
       loopback: false,
@@ -33,11 +34,12 @@ const device = spi.open(0, 0, err => {
           'can\'t set mode'
         );
 
-        assert.strictEqual(
-          options.chipSelectHigh,
-          newOptions.chipSelectHigh,
-          'can\'t set chipSelectHigh'
-        );
+        // The semantics of chipSelectHigh have changed in kernel 5 and higher
+        //assert.strictEqual(
+        //  options.chipSelectHigh,
+        //  newOptions.chipSelectHigh,
+        //  'can\'t set chipSelectHigh'
+        //);
 
         assert.strictEqual(
           options.lsbFirst,

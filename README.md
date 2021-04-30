@@ -225,8 +225,17 @@ device drivers used on those systems.
 Configurations options can be read with the `getOptions` and `getOptionsSync`
 methods.
 
+**IMPORTANT** The semantics of **chipSelectHigh** have changed with Linux
+kernel 5. To the best of my knowledge, the chipSelectHigh option no longer
+serves any purpose when used from user space with Linux kernel 5 and should
+not be used. With Linux kernel 5, the chip select is assumed to be active low.
+With Linux kernel 5, if an SPI device has has active high chip select, it's
+chip select must be controlled manually with a GPIO using a module such as
+[onoff](https://github.com/fivdi/onoff). The chipSelectHigh option has been
+crossed out below but it's still available for usage on older kernels.
+
 - mode - number, 2-bit, MODE0, MODE1, MODE2, or MODE3, default MODE0
-- chipSelectHigh - boolean, true for active high chip select, default false
+- ~~chipSelectHigh - boolean, true for active high chip select, default false~~
 - lsbFirst - boolean, true for least significant bit first transfer, default
 false
 - threeWire - boolean, true for shared MISO/MOSI signals, default false

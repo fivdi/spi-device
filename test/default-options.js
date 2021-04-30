@@ -5,7 +5,8 @@ const assert = require('assert');
 
 const checkDefaultOptions = options => {
   assert.strictEqual(options.mode, spi.MODE0, 'default mode incorrect');
-  assert.strictEqual(options.chipSelectHigh, false, 'default chipSelectHigh incorrect');
+  // The semantics of chipSelectHigh have changed in kernel 5 and higher
+  //assert.strictEqual(options.chipSelectHigh, false, 'default chipSelectHigh incorrect');
   assert.strictEqual(options.lsbFirst, false, 'default lsbFirst incorrect');
   assert.strictEqual(options.threeWire, false, 'default threeWire incorrect');
   assert.strictEqual(options.loopback, false, 'default loopback incorrect');
