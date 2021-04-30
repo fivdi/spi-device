@@ -27,7 +27,7 @@ const transferNothing = _ => {
 
 const transferAsManyAsPossible = _ => {
   const mcp3008 = spi.openSync(0, 0);
-  mcp3008.transferSync(createMessage(511)); // works
+  mcp3008.transferSync(createMessage(64)); // works on 5.10.17-v7+
   mcp3008.closeSync();
 };
 
@@ -35,10 +35,10 @@ const transferToMany = _ => {
   const mcp3008 = spi.openSync(0, 0);
 
   try {
-    mcp3008.transferSync(createMessage(512)); // doesn't work
-    assert.ok(false, 'expected exception for 512 transfers');
+    mcp3008.transferSync(createMessage(65)); // doesn't work on 5.10.17-v7+
+    assert.ok(false, 'expected exception for 65 transfers');
   } catch (e) {
-    assert.strictEqual(e.code, 'EINVAL', 'expected EINVAL error');
+    assert.strictEqual(e.code, 'EMSGSIZE', 'expected EMSGSIZE error');
   }
 
   mcp3008.closeSync();
