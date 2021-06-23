@@ -1,5 +1,5 @@
-Unpublished
-===========
+3.1.2 / Jun 23 2021
+===================
 
   * fix compile error occuring with gcc 10 (fixes [#21](https://github.com/fivdi/spi-device/issues/21))
 
