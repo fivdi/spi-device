@@ -32,7 +32,7 @@ static void ToJsOptions(v8::Local<v8::Object> &jsOptions,
   Nan::Set(
     jsOptions,
     Nan::New("mode").ToLocalChecked(),
-    Nan::New<v8::Uint32>(spiOptions.mode & (SPI_CPOL | SPI_CPHA))
+    Nan::New<v8::Uint32>(static_cast<uint32_t>(spiOptions.mode & (SPI_CPOL | SPI_CPHA)))
   );
   Nan::Set(
     jsOptions,
