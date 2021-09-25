@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/fivdi/spi-device.svg?branch=master)](https://travis-ci.org/fivdi/spi-device)
+[![Build Status](https://app.travis-ci.com/fivdi/spi-device.svg?branch=master)](https://app.travis-ci.com/github/fivdi/spi-device)
 [![npm Version](http://img.shields.io/npm/v/spi-device.svg)](https://www.npmjs.com/package/spi-device)
 [![Downloads Per Month](http://img.shields.io/npm/dm/spi-device.svg)](https://www.npmjs.com/package/spi-device)
 [![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
